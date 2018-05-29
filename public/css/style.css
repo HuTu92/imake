@@ -1,0 +1,308 @@
+body {
+    background-color: #FFFFFF;
+}
+
+.ui.top.menu{
+    margin: 0;
+    border-radius: 0;
+}
+.main.menu {
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-radius: 0;
+    border-top: none;
+    box-shadow: none;
+    transition: box-shadow 0.5s ease, padding 0.5s ease
+}
+.main.menu .item img.logo {
+    margin-right: 1.5em;
+}
+
+.overlay {
+    float: left;
+    margin: 0em 3em 1em 0em;
+}
+.overlay .menu {
+    position: relative;
+    left: 0;
+    transition: left 0.5s ease;
+}
+
+.main.menu.fixed {
+    background-color: #FFFFFF;
+    border: 1px solid #DDD;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+}
+.overlay.fixed .menu {
+    left: 800px;
+}
+
+.text.container .left.floated.image {
+    margin: 2em 2em 2em -4em;
+}
+.text.container .right.floated.image {
+    margin: 2em -4em 2em 2em;
+}
+
+.ui.footer.segment {
+    margin: 0;
+    padding: 5em 0em;
+}
+.logobg{
+    background-image: url("../images/bg4.jpg");
+    padding: 2em 0;
+    z-index: 3;
+}
+.sidebar > .vertical.ui.menu{
+    width: 100%;
+}
+.sidebar  .vertical.ui.menu .item  img.category-icon{
+    vertical-align: initial;
+    width: 20px;;
+}
+.item .content  {
+    max-width: calc(100% - 90px);
+}
+.item .content a{
+
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+}
+.old-price{
+    text-decoration: line-through;
+}
+div.product{
+    overflow: hidden;
+}
+.product .mini-attachments{
+    position: absolute;
+    top: 40px;
+    right: -100px;
+    transition: 0.2s;
+    z-index: 1;
+}
+.product:hover .mini-attachments{
+    transition: 0.2s;
+    right: 0;
+    z-index: 2;
+}
+.product .mini-attachments img{
+    cursor: pointer;
+    margin: 2px;
+    border: 1px solid #eee;
+}
+
+.product .mini-icons{
+    position: absolute;
+    top: 40px;
+    left: -50px;
+    transition: 0.2s;
+    z-index: 1;
+}
+.product:hover .mini-icons{
+    transition: 0.2s;
+    left: 0;
+    z-index: 2;
+}
+.product .mini-icons > div {
+    margin: 3px;
+}
+.product .mini-icons > img{
+    border:1px solid #eee;
+    margin: 2px;
+}
+.product .mini-icons .add-bookmark{
+    width: 35px;
+    height: 35px;
+    background-color: #69AA6F;
+    color: #fff;
+    text-align: center;
+    padding: 7px 0 0 2px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.owl-carousel{
+    margin-bottom: 20px;
+}
+.owl-carousel .owl-stage-outer {
+    padding-bottom: 5px;
+}
+.bannerhover{
+    margin-bottom: 35px;
+}
+.vendors-slider-bg{
+    margin-top: 35px;
+    background-image: url("../images/bg4.jpg");
+}
+
+ul#vendors-slider li{
+    position: relative;
+    display: inline-block;
+}
+
+ul#vendors-slider li a.button {
+    width: 120px;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    margin: -18px 0 0 -60px;
+    left: 50%;
+    top: 50%;
+    border: 1px solid #fff;
+    opacity: 0;
+    text-transform: uppercase;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    -webkit-transform: scale(2);
+    transform: scale(2);
+    background: #e1e1e1;
+    color: #666;
+    height: 36px;
+    line-height: 36px;
+}
+ul#vendors-slider li a:hover {
+    background: #69AA6F;
+    color: #fff;
+}
+ul#vendors-slider li:hover a {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+.total-add-to-card button.add-to-cart{
+    margin-top: -7px;
+}
+.product-info-first{
+    margin-bottom: 50px !important;
+}
+@media screen and (max-width: 560px) {
+    .tabs.menu a.item span{
+        display: none !important;
+    }
+}
+ul.m-menu{
+    list-style: none;
+    width: 100%;
+    text-align: right;
+    display: block;
+    position: relative;
+    margin: 0;
+}
+ul.m-menu > li{
+    display: inline-block;
+    padding: 20px 15px;
+}
+ul.m-menu > li:hover > ul.m-menu-first-child{
+    visibility: visible;
+    opacity:1;
+    transition:opacity 0.2s linear;
+    min-height: 300px;
+}
+.m-menu-first-child{
+    position: absolute;
+    left: 0;
+    top:60px;
+    width: 100%;
+    text-align: left;
+    visibility: hidden;
+    opacity:0;
+    background-color: #fff;
+    border: 1px solid #DDD;
+    z-index: 3;
+    border-top: none;
+}
+.fixed .m-menu-first-child{
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+}
+.attributes-and-color{
+    margin-top: 20px;
+}
+.social-buttons button.button, .attributes-and-color .ui.dropdown, .attributes-and-color .ui.input{
+    margin-bottom: 5px;
+}
+.ui.footer.segment{
+    margin-top: 20px;
+}
+.main.menu.is_stuck{
+    z-index: 9;
+}
+div.cart-icon{
+    cursor:pointer;
+    float: right;
+}
+div.cart-icon i{
+    font-size: 18px;
+ }
+.cart-total a.button{
+    margin-top: 10px;
+}
+.sidebar, .page-conent{
+    display: inline-block;
+}
+@media screen and (min-width: 1200px) {
+    .ui.grid > .sidebar.column{
+        width: 288px;
+    }
+    .ui.grid > .page-conent.column{
+        width: 866px;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .ui.grid > .sidebar.column{
+        width: 270px;
+    }
+    .ui.grid > .page-conent.column{
+        width: calc(100% - 270px - 4rem);
+    }
+    .ui.container {
+        width: 95%;
+    }
+}
+body.products\.index .ui.cards > .card{
+    width: 270px;
+}
+@media screen and (max-width: 1200px) {
+    body.products\.index .ui.cards > .card{
+        width: calc(50% - 1rem);
+
+    }
+}
+@media screen and (max-width: 420px) {
+    body.products\.index .ui.cards > .card{
+        width: calc(100% - 1rem);
+
+    }
+}
+div.social-login{
+    margin-top: 50px;
+}
+.search.dropdown input.search{
+    min-width: 60px;
+}
+.no-border .attached.segment{
+    border-top: none !important;
+}
+ul.pagination{
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    display: inline-block;
+    border-radius: 0.285714rem;
+    box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
+    padding: 0;
+}
+ul.pagination li{
+    display: inline-block;
+    min-width: 3em;
+    text-align: center;
+    padding: 8px;
+    transition: background 0.1s ease 0s, box-shadow 0.1s ease 0s, color 0.1s ease 0s;
+    vertical-align: middle;
+    /*border-right: 1px solid #eee;*/
+    margin: 0;
+}
+ul.pagination li:hover{
+    background-color: #eee;
+}

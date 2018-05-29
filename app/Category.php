@@ -1,0 +1,14 @@
+<?php
+
+namespace imake;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Category extends Model
+{
+	protected $table  = 'categories';
+
+    public function products(){
+    	return $this->belongsToMany("imake\Product", "product_category");
+    }
+}
