@@ -70,4 +70,5 @@ class Image extends Model
 
 		return new self(["file" => asset('uploads').'/'.$file]);
 	}
+
 }

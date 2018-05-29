@@ -110,4 +110,12 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 
 
 
+	/*
+	 * Ajax Requests
+	 */
+
+	Route::get('/product-form-variation-fields',function (){
+	    return view("inc.product-form-variation-fields",  ["variation_number" => $_GET["variation_number"]] );
+    });
+
 });

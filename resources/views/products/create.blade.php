@@ -7,7 +7,10 @@
         $(document).ready(function () {
             $('input#images').fileuploader({
                 limit: 15,
-                extensions: ['jpg', 'jpeg', 'png', 'gif']
+                extensions: ['jpg', 'jpeg', 'png', 'gif'],
+                onFileRead: function(item, listEl, parentEl, newInputEl, inputEl) {
+                    console.log(item.reader.src)
+                }
             });
             $('input#image_general').fileuploader({
                 limit: 1,
@@ -46,8 +49,9 @@
                     <a class="active item" data-tab="general">General</a>
                     <a class="item" data-tab="attributes">Attributes</a>
                     <a class="item" data-tab="images">Images</a>
+                    <a class="item" data-tab="variations">Variations</a>
                 </div>
-                <form class="ui form error no-border" enctype="multipart/form-data" method="post" action="{{ route('products.store') }}">
+                    <form class="ui form error no-border" enctype="multipart/form-data" method="post" action="{{ route('products.store') }}">
                     <div class="ui bottom attached active tab segment" data-tab="general">
                         {{ csrf_field() }}
                         <div class="field {{ $errors->has('name') ? 'error' : '' }}">
@@ -190,10 +194,26 @@
                                 <input placeholder="Images" type="file" value="{{old("images[]")}}" name="images[]" multiple id="images" accept="image/*">
                             </div>
                         </div>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="variations">
+                        <div class="added-variations">
+                            @if(old("variations"))
+                                @foreach(old("variations") as $variation_number => $variation)
 
+                                    @include("inc.product-form-variation-fields", ["variation" => $variation, "variation_number" => $variation_number])
+                                @endforeach
+                            @endif
+                        </div>
+                        <?php dump(old("variations")); ?>
+
+                        <button class="mini ui button add-variation" type="button">
+                            <i class="plus circle icon"></i>
+                            Add variation
+                        </button>
                     </div>
 
-                    <button class="ui button primary" ><i class="save icon"></i> Save Product</button>
+
+                        <button class="ui button primary" ><i class="save icon"></i> Save Product</button>
                 </form>
             </div>
         </div>
@@ -214,6 +234,17 @@
 
                 }
             });
+
+
+            $(".add-variation").click(function (response) {
+                var variation_number = $.now();
+                $.get('/product-form-variation-fields', { variation_number: variation_number }, function(response){
+                    $(".added-variations").append(response);
+                });
+            })
+            $(".added-variations").delegate(".remove-variation", "click", function () {
+                $(this).closest(".variation").remove()
+            })
         })
     </script>
 @endsection

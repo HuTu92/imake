@@ -1,7 +1,23 @@
 @extends('layouts.layout')
 
 @section('content')
+    <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.fileuploader.css')}}">
+    <script src="{{asset('js/jquery.fileuploader.min.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            $('input[name="avatar"]').fileuploader({
+                limit: 1,
+                extensions: ['jpg', 'jpeg', 'png', 'gif'],
+                files:[{
+                    name: 'Avatar',
+                    size: 1024,
+                    type: 'image/jpg',
+                    file: '<?php echo $user->getAvatar();?>'
+                }]
+            });
 
+        })
+    </script>
     <div class="ui container">
         <div class="ui grid">
             <div class="column">
@@ -74,7 +90,6 @@
                         <label>file</label>
                         <div class="ui left icon input">
                             <input placeholder="Email" type="file" value="" name="avatar" >
-                            <i class="file outline icon"></i>
                         </div>
                     </div>
 
