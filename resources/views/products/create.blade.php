@@ -5,18 +5,83 @@
     <script src="{{asset('js/jquery.fileuploader.min.js')}}"></script>
     <script>
         $(document).ready(function () {
-            $('input#images').fileuploader({
+            $('input#images, input#image_general').fileuploader({
                 limit: 15,
                 extensions: ['jpg', 'jpeg', 'png', 'gif'],
-                onFileRead: function(item, listEl, parentEl, newInputEl, inputEl) {
-                    console.log(item.reader.src)
+                sorter: {
+                    // selector exclude on drag (ex: 'input, textarea')
+                    selectorExclude: null,
+
+                    // placeholder html
+                    // null - will clone the item without content
+                    placeholder: null,
+
+                    // scroll container on drag
+                    scrollContainer: window,
+
+                    // callback fired after sorting, adding and removing a file
+                    onSort: function(list, listEl, parentEl, newInputEl, inputEl) {
+                        // your callback goes here
+                    }
+                },
+                onRemove: function(item, listEl, parentEl, newInputEl, inputEl) {
+                    console.log(item)
+
+                    return true;
+                },
+                upload: {
+                    url: '{{ route('images.store') }}',
+                    data: null,
+                    type: 'POST',
+                    enctype: 'multipart/form-data',
+                    start: true,
+                    synchron: true,
+                    chunk: false,
+                    beforeSend: function(item, listEl, parentEl, newInputEl, inputEl) {
+                        item.upload.headers = {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        };
+                        return true;
+                    },
+                    onSuccess: function(data, item, listEl, parentEl, newInputEl, inputEl, textStatus, jqXHR) {
+                        console.log("inputEl", inputEl);
+                        console.log("newInputEl", newInputEl);
+                        item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
+
+                        setTimeout(function() {
+                            item.html.find('.progress-bar2').fadeOut(400);
+                        }, 400);
+                        $(".ajax-images").append('<input name="ajax-images[]" value="'+data+'">')
+                    },
+                    onError: function(item, listEl, parentEl, newInputEl, inputEl, jqXHR, textStatus, errorThrown) {
+                        var progressBar = item.html.find('.progress-bar2');
+
+                        if(progressBar.length > 0) {
+                            progressBar.find('span').html(0 + "%");
+                            progressBar.find('.fileuploader-progressbar .bar').width(0 + "%");
+                            item.html.find('.progress-bar2').fadeOut(400);
+                        }
+
+                        item.upload.status != 'cancelled' && item.html.find('.fileuploader-action-retry').length == 0 ? item.html.find('.column-actions').prepend(
+                            '<a class="fileuploader-action fileuploader-action-retry" title="Retry"><i></i></a>'
+                        ) : null;
+                    },
+                    onProgress: function(data, item, listEl, parentEl, newInputEl, inputEl) {
+                        var progressBar = item.html.find('.progress-bar2');
+
+                        if(progressBar.length > 0) {
+                            progressBar.show();
+                            progressBar.find('span').html(data.percentage + "%");
+                            progressBar.find('.fileuploader-progressbar .bar').width(data.percentage + "%");
+                        }
+                    },
+
+                    // Callback fired after all files were uploaded
+                    onComplete: function(listEl, parentEl, newInputEl, inputEl, jqXHR, textStatus) {
+                        // callback will go here
+                    }
                 }
             });
-            $('input#image_general').fileuploader({
-                limit: 1,
-                extensions: ['jpg', 'jpeg', 'png', 'gif']
-            });
-
         })
     </script>
     <div class="ui container">
@@ -184,6 +249,9 @@
 
                     </div>
                     <div class="ui bottom attached tab segment" data-tab="images">
+                        <div class="ajax-images">
+
+                        </div>
                         <div class="field {{ $errors->has('images') ? 'error' : '' }}">
                             <label>Product general image *</label>
                             <div class="ui left icon input">

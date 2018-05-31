@@ -61,6 +61,7 @@ class Image extends Model
 
 
 	public static function create($image, $sizes = []){
+
 		$file = self::store($image);
 
 		if(!empty($sizes)){

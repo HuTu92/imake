@@ -36,7 +36,7 @@ class ProductController extends Controller
 			'categories' => 'exists:categories,id',
 			'colors' => 'exists:colors,id',
 			'tags' => 'exists:tags,id',
-			'images.*' => 'image|max:4000',
+		//	'images.*' => 'image|max:4000',
 			'length' => 'nullable|numeric',
 			'width' => 'nullable|numeric',
 			'height' => 'nullable|numeric',
@@ -44,9 +44,9 @@ class ProductController extends Controller
 			'stock' => 'required|integer',
 		];
 
-		if(empty($data['old_images'])){
+		/*if(empty($data['old_images'])){
 			$rules['images'] ='required';
-		}
+		}*/
 
 
 
@@ -129,7 +129,7 @@ class ProductController extends Controller
 		        Tag::find($request->get('tags', []))
 		    );
 
-		    if($request->hasFile("images")){
+		   /* if($request->hasFile("images")){
 
 		    	$product_images = [];
 			    foreach($request->file("images") as $image){
@@ -140,7 +140,18 @@ class ProductController extends Controller
 				    $product_images
 			    );
 
-		    }
+		    }*/
+
+		   if(!empty($request->{"ajax-images"})){
+               $product_images = [];
+		       foreach ($request->{"ajax-images"} as $file){
+                   $product_images[] = Image::where("file", $file)->first();
+               }
+
+               $product->images()->saveMany(
+                   $product_images
+               );
+           }
 
 		    return redirect()->route('products.show', $product->id);
 	    }else{

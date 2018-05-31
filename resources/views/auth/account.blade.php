@@ -8,6 +8,7 @@
             $('input[name="avatar"]').fileuploader({
                 limit: 1,
                 extensions: ['jpg', 'jpeg', 'png', 'gif'],
+                // by default - false,
                 files:[{
                     name: 'Avatar',
                     size: 1024,

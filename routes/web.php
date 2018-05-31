@@ -118,4 +118,11 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 	    return view("inc.product-form-variation-fields",  ["variation_number" => $_GET["variation_number"]] );
     });
 
+    Route::post( '/images/store', [
+        'as' => 'images.store',
+        'middleware' => 'auth',
+        'uses' => 'ImageController@store',
+    ] );
+
+
 });

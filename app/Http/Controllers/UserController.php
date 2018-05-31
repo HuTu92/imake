@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use imake\Vendor;
-use Lang;
 use imake\Image;
+use Intervention\Image\ImageManagerStatic;
 
 // import the Intervention Image Manager Class
 
@@ -34,13 +34,23 @@ class UserController extends Controller
 		$validator = $this->validator($request->all());
 		$user = Auth::user();
 
+		//fileuploader-list-avatar
 		if(!$validator->fails()) {
 
-			if($request->hasFile("avatar")){
-				$image = Image::create( $request->file("avatar"), [400, 400] );
-				$image->save();
-				$user->image_id = $image->id;
-			}
+            $user->image_id = null;
+
+		    if(!empty(json_decode($request->{"fileuploader-list-avatar"}))){
+                if($request->hasFile("avatar")){
+                    $image = Image::create( $request->file("avatar"), [400, 400] );
+                    $image->save();
+                    $user->image_id = $image->id;
+                }else{
+                    $image = Image::where("file", json_decode($request->{"fileuploader-list-avatar"})[0]->file)->first();
+                    if($image){
+                        $user->image_id = $image->id;
+                    }
+                }
+		    }
 
 			$user->name         = $request->get( 'name' );
 			$user->last_name    = $request->get( 'last_name' );
@@ -60,7 +70,7 @@ class UserController extends Controller
 
 			$user->save();
 
-			return redirect()->back()->with("message", Lang::get('strings.account-success-updated'));
+			return redirect()->back()->with("message", __('strings.account-success-updated'));
 		}else{
 			return redirect()->back()->withErrors($validator->messages());
 		}
