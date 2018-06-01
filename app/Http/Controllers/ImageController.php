@@ -22,6 +22,7 @@ class ImageController extends Controller
             $image->save();
             echo $image->file;
         }else{
+            //TODO VALIDATE
             echo "oops;";
         }
         exit;

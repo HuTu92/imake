@@ -4,30 +4,94 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.fileuploader.css')}}">
     <script src="{{asset('js/jquery.fileuploader.min.js')}}"></script>
     <script>
+        <?php $images = json_decode(old("fileuploader-list-images"));?>
         $(document).ready(function () {
-            $('input#images, input#image_general').fileuploader({
-                limit: 15,
-                extensions: ['jpg', 'jpeg', 'png', 'gif'],
-                sorter: {
-                    // selector exclude on drag (ex: 'input, textarea')
-                    selectorExclude: null,
+            $('input#images').fileuploader({
+                extensions: null,
+                changeInput: ' ',
+                theme: 'thumbnails',
+                enableApi: true,
+                addMore: true,
+                @if($images)
+                files:[
+                    @foreach($images as $image)
+                        {name: '{{str_replace("0:/", "", $image->file)}}',
+                        size: 1024,
+                        type: 'image/jpeg',
+                        file: '{{str_replace("0:/", "", $image->file)}}'},
+                    @endforeach
+                ],
+                @endif
+                onSelect: function(item, listEl, parentEl, newInputEl, inputEl) {
+                    inputEl.test = 88744
+                    console.log(inputEl)
+                },
+                thumbnails: {
+                    box: '<div class="fileuploader-items">' +
+                    '<ul class="fileuploader-items-list" >' +
+                    '<li class="fileuploader-thumbnails-input"><div class="fileuploader-thumbnails-input-inner"><i>+</i></div></li>' +
+                    '</ul>' +
+                    '</div>',
+                    item: '<li class="fileuploader-item file-has-popup">' +
+                    '<div class="fileuploader-item-inner">' +
+                    '<div class="type-holder">${extension}</div>' +
+                    '<div class="actions-holder">' +
+                    '<a class="fileuploader-action fileuploader-action-remove" title="${captions.remove}"><i></i></a>' +
+                    '</div>' +
+                    '<div class="thumbnail-holder">' +
+                    '${image}' +
+                    '<span class="fileuploader-action-popup"></span>' +
+                    '</div>' +
+                    '<div class="content-holder"></div>' +
+                    '<div class="progress-holder">${progressBar}</div>' +
+                    '</div>' +
+                    '</li>',
+                    item2: '<li class="fileuploader-item file-has-popup">' +
+                    '<div class="fileuploader-item-inner">' +
+                    '<div class="type-holder">${extension}</div>' +
+                    '<div class="actions-holder">' +
+                    '<a href="${file}" class="fileuploader-action fileuploader-action-download" title="${captions.download}" download><i></i></a>' +
+                    '<a class="fileuploader-action fileuploader-action-sort" title="${captions.sort}"><i></i></a>' +
+                    '<a class="fileuploader-action fileuploader-action-remove" title="${captions.remove}"><i></i></a>' +
+                    '</div>' +
+                    '<div class="thumbnail-holder">' +
+                    '${image}' +
+                    '<span class="fileuploader-action-popup"></span>' +
+                    '</div>' +
+                    '<div class="content-holder"><span></span></div>' +
+                    '<div class="progress-holder">${progressBar}</div>' +
+                    '</div>' +
+                    '</li>',
+                    startImageRenderer: false,
+                    canvasImage: false,
+                    _selectors: {
+                        list: '.fileuploader-items-list',
+                        item: '.fileuploader-item',
+                        start: '.fileuploader-action-start',
+                        retry: '.fileuploader-action-retry',
+                        remove: '.fileuploader-action-remove'
+                    },
+                    onItemShow: function(item, listEl, parentEl, newInputEl, inputEl) {
+                        var plusInput = listEl.find('.fileuploader-thumbnails-input'),
+                            api = $.fileuploader.getInstance(inputEl.get(0));
 
-                    // placeholder html
-                    // null - will clone the item without content
-                    placeholder: null,
+                        plusInput.insertAfter(item.html)[api.getOptions().limit && api.getChoosedFiles().length >= api.getOptions().limit ? 'hide' : 'show']();
 
-                    // scroll container on drag
-                    scrollContainer: window,
-
-                    // callback fired after sorting, adding and removing a file
-                    onSort: function(list, listEl, parentEl, newInputEl, inputEl) {
-                        // your callback goes here
+                        if(item.format == 'image') {
+                            item.html.find('.fileuploader-item-icon').hide();
+                        }
                     }
                 },
-                onRemove: function(item, listEl, parentEl, newInputEl, inputEl) {
-                    console.log(item)
+                dragDrop: {
+                    container: '.fileuploader-thumbnails-input'
+                },
+                afterRender: function(listEl, parentEl, newInputEl, inputEl) {
+                    var plusInput = listEl.find('.fileuploader-thumbnails-input'),
+                        api = $.fileuploader.getInstance(inputEl.get(0));
 
-                    return true;
+                    plusInput.on('click', function() {
+                        api.open();
+                    });
                 },
                 upload: {
                     url: '{{ route('images.store') }}',
@@ -44,42 +108,58 @@
                         return true;
                     },
                     onSuccess: function(data, item, listEl, parentEl, newInputEl, inputEl, textStatus, jqXHR) {
-                        console.log("inputEl", inputEl);
-                        console.log("newInputEl", newInputEl);
+                        item.name = data;
+                        item.test = 888;
                         item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
 
                         setTimeout(function() {
-                            item.html.find('.progress-bar2').fadeOut(400);
+                            item.html.find('.progress-holder').hide();
+                            item.renderThumbnail();
+
+                            item.html.find('.fileuploader-action-popup, .fileuploader-item-image').show();
+                            item.html.find('.fileuploader-action-remove').before('<a class="fileuploader-action fileuploader-action-sort" title="Sort"><i></i></a>');
                         }, 400);
-                        $(".ajax-images").append('<input name="ajax-images[]" value="'+data+'">')
+                        //$(".ajax-images").append('<input name="ajax-images[]" value="'+data+'">')
                     },
-                    onError: function(item, listEl, parentEl, newInputEl, inputEl, jqXHR, textStatus, errorThrown) {
-                        var progressBar = item.html.find('.progress-bar2');
-
-                        if(progressBar.length > 0) {
-                            progressBar.find('span').html(0 + "%");
-                            progressBar.find('.fileuploader-progressbar .bar').width(0 + "%");
-                            item.html.find('.progress-bar2').fadeOut(400);
-                        }
-
-                        item.upload.status != 'cancelled' && item.html.find('.fileuploader-action-retry').length == 0 ? item.html.find('.column-actions').prepend(
-                            '<a class="fileuploader-action fileuploader-action-retry" title="Retry"><i></i></a>'
-                        ) : null;
+                    onError: function(item) {
+                        item.html.find('.progress-holder, .fileuploader-action-popup, .fileuploader-item-image').hide();
                     },
-                    onProgress: function(data, item, listEl, parentEl, newInputEl, inputEl) {
-                        var progressBar = item.html.find('.progress-bar2');
+                    onProgress: function(data, item) {
+                        var progressBar = item.html.find('.progress-holder');
 
                         if(progressBar.length > 0) {
                             progressBar.show();
-                            progressBar.find('span').html(data.percentage + "%");
                             progressBar.find('.fileuploader-progressbar .bar').width(data.percentage + "%");
                         }
+
+                        item.html.find('.fileuploader-action-popup, .fileuploader-item-image').hide();
                     },
 
                     // Callback fired after all files were uploaded
                     onComplete: function(listEl, parentEl, newInputEl, inputEl, jqXHR, textStatus) {
                         // callback will go here
                     }
+                }
+,
+                sorter: {
+                    selectorExclude: null,
+                    placeholder: null,
+                    scrollContainer: window,
+                    onSort: function(list, listEl, parentEl, newInputEl, inputEl) {
+                        var api = $.fileuploader.getInstance(inputEl.get(0)),
+                            fileList = api.getFileList(),
+                            _list = [];
+
+                        $.each(fileList, function(i, item) {
+                            _list.push({
+                                name: item.name,
+                                index: item.index,
+                                test: 888
+                            });
+                        });
+                    }
+                },
+                onRemove: function(item) {
                 }
             });
         })
@@ -249,17 +329,10 @@
 
                     </div>
                     <div class="ui bottom attached tab segment" data-tab="images">
-                        <div class="ajax-images">
-
-                        </div>
                         <div class="field {{ $errors->has('images') ? 'error' : '' }}">
-                            <label>Product general image *</label>
+                            <label>Product images</label>
                             <div class="ui left icon input">
-                                <input placeholder="Images" type="file" value="{{old("images[]")}}" name="images[]" id="image_general" accept="image/*">
-                            </div>
-                            <label>Other images</label>
-                            <div class="ui left icon input">
-                                <input placeholder="Images" type="file" value="{{old("images[]")}}" name="images[]" multiple id="images" accept="image/*">
+                                <input placeholder="Images" type="file" value="" name="images[]" multiple id="images" accept="image/*">
                             </div>
                         </div>
                     </div>

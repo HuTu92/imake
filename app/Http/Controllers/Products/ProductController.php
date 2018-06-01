@@ -26,6 +26,9 @@ class ProductController extends Controller
 	protected function validator(array $data)
 	{
 
+	    if($data["fileuploader-list-images"] == "[]"){
+            $data["fileuploader-list-images"] = null;
+        }
 
 		$rules = [
 			'name' => 'required|string|max:255',
@@ -36,19 +39,13 @@ class ProductController extends Controller
 			'categories' => 'exists:categories,id',
 			'colors' => 'exists:colors,id',
 			'tags' => 'exists:tags,id',
-		//	'images.*' => 'image|max:4000',
+			'fileuploader-list-images' => 'required|string|min:10', //TODO custom message (The fileuploader-list-images field is required.) default
 			'length' => 'nullable|numeric',
 			'width' => 'nullable|numeric',
 			'height' => 'nullable|numeric',
 			'weight' => 'nullable|numeric',
 			'stock' => 'required|integer',
 		];
-
-		/*if(empty($data['old_images'])){
-			$rules['images'] ='required';
-		}*/
-
-
 
 		return Validator::make($data, $rules);
 	}
@@ -129,28 +126,19 @@ class ProductController extends Controller
 		        Tag::find($request->get('tags', []))
 		    );
 
-		   /* if($request->hasFile("images")){
 
-		    	$product_images = [];
-			    foreach($request->file("images") as $image){
-				    $product_images[] =  Image::create( $image );
-			    }
+		   if(!empty($request->{"fileuploader-list-images"})){
+		       $images = json_decode($request->{"fileuploader-list-images"});
+		       if(!empty($images)) {
+                   $product_images = [];
+                   foreach ($images as $image) {
+                       $product_images[] = Image::where("file", str_replace("0:/", "", $image->file))->first();
+                   }
 
-			    $product->images()->saveMany(
-				    $product_images
-			    );
-
-		    }*/
-
-		   if(!empty($request->{"ajax-images"})){
-               $product_images = [];
-		       foreach ($request->{"ajax-images"} as $file){
-                   $product_images[] = Image::where("file", $file)->first();
+                   $product->images()->saveMany(
+                       $product_images
+                   );
                }
-
-               $product->images()->saveMany(
-                   $product_images
-               );
            }
 
 		    return redirect()->route('products.show', $product->id);
@@ -240,22 +228,20 @@ class ProductController extends Controller
 		    );
 
 
-		    if($request->hasFile("images")){
 
-			    $product_images = [];
-			    if($request->hasFile("images")) {
-				    foreach ( $request->file( "images" ) as $image ) {
-					    $image = Image::create( $image );
-					    $image->save();
-					    $product_images[] = $image->id;
-				    }
-			    }
+            if(!empty($request->{"fileuploader-list-images"})){
+                $images = json_decode($request->{"fileuploader-list-images"});
+                if(!empty($images)) {
+                    $product_images = [];
+                    foreach ($images as $image) {
+                        $product_images[] = Image::where("file", str_replace("0:/", "", $image->file))->first();
+                    }
 
-			    $product->images()->attach(
-				    $product_images
-			    );
-
-		    }
+                    $product->images()->saveMany(
+                        $product_images
+                    );
+                }
+            }
 
 		    $product->update($request->all());
 
