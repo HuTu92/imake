@@ -132,12 +132,16 @@ class ProductController extends Controller
 		       if(!empty($images)) {
                    $product_images = [];
                    foreach ($images as $image) {
-                       $product_images[] = Image::where("file", str_replace("0:/", "", $image->file))->first();
+                       $file = Image::where("file", str_replace("0:/", "", $image->file))->first();
+                       if($file){
+                           $product_images[] = $file;
+                       }
                    }
-
-                   $product->images()->saveMany(
-                       $product_images
-                   );
+                    if(!empty($product_images)){
+                        $product->images()->saveMany(
+                            $product_images
+                        );
+                    }
                }
            }
 
