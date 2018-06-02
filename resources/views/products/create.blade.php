@@ -108,18 +108,26 @@
                         return true;
                     },
                     onSuccess: function(data, item, listEl, parentEl, newInputEl, inputEl, textStatus, jqXHR) {
-                        item.name = data;
-                        item.test = 888;
-                        item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
+                        if(!data) {
+                            item.remove();
+                            //    listEl.remove();
+                            //    parentEl.remove();
+                            newInputEl.remove();
+                            newInputEl.remove();
+                            inputEl.remove();
+                            textStatus.remove();
+                            jqXHR.remove();
+                        }else {
+                            item.name = data;
+                            item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
+                            setTimeout(function () {
+                                item.html.find('.progress-holder').hide();
+                                item.renderThumbnail();
 
-                        setTimeout(function() {
-                            item.html.find('.progress-holder').hide();
-                            item.renderThumbnail();
-
-                            item.html.find('.fileuploader-action-popup, .fileuploader-item-image').show();
-                            item.html.find('.fileuploader-action-remove').before('<a class="fileuploader-action fileuploader-action-sort" title="Sort"><i></i></a>');
-                        }, 400);
-                        //$(".ajax-images").append('<input name="ajax-images[]" value="'+data+'">')
+                                item.html.find('.fileuploader-action-popup, .fileuploader-item-image').show();
+                                item.html.find('.fileuploader-action-remove').before('<a class="fileuploader-action fileuploader-action-sort" title="Sort"><i></i></a>');
+                            }, 400);
+                        }
                     },
                     onError: function(item) {
                         item.html.find('.progress-holder, .fileuploader-action-popup, .fileuploader-item-image').hide();

@@ -22,6 +22,7 @@
                     <div class="menu">
                         <a class="item"  href="{{ route("auth.account")}}"><i class="user icon"></i> {{__("Account")}}</a>
                         @if($user->is_vendor)
+                            <a class="item"  href="{{ route("products.create")}}"><i class="idea icon"></i> {{__("New product")}}</a>
                             <a class="item"  href="{{ route("products.my")}}"><i class="idea icon"></i> {{__("My products")}}</a>
                         @endif
                         <a class="item"  href="{{route('logout')}}"><i class="remove user icon"></i>{{__('strings.Logout')}}</a>
