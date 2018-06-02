@@ -15,6 +15,22 @@
         </div>
         <div class="ui stackable grid">
             <div class="page-conent column">
+                @if ($errors->all())
+                    <div class="ui error message">
+                        <ul class="list">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (session()->has('message'))
+                    <div class="ui info message">
+                        <ul class="list">
+                            <li>{{ session()->get('message') }}</li>
+                        </ul>
+                    </div>
+                @endif
                 <div class="ui stackable grid product-info-first">
                     <div class="eight wide column">
 
@@ -28,22 +44,7 @@
                         @endif
                     </div>
                     <div class="eight wide column">
-                        @if ($errors->all())
-                            <div class="ui error message">
-                                <ul class="list">
-                                    @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        @if (session()->has('message'))
-                            <div class="ui info message">
-                                <ul class="list">
-                                    <li>{{ session()->get('message') }}</li>
-                                </ul>
-                            </div>
-                        @endif
+
                         <h2 class="ui header">
                             {{$product->name}}
                             <div class="sub header">{{$product->user->name}} {{$product->user->last_name}}</div>
