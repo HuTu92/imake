@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use imake\Vendor;
+use Illuminate\Support\Facades\Hash;
 use imake\Image;
 use Intervention\Image\ImageManagerStatic;
 
@@ -57,10 +58,9 @@ class UserController extends Controller
 		//	$user->email        = $request->get( 'email' );
 			$user->is_vendor    = $request->get( 'is_vendor',0 );
 
-
-			if ( ! $request->has( 'password' ) == '' ) {
-				$user->password = bcrypt( $request->get( 'password' ) );
-			}
+            if(!empty($request->get['password'])) {
+                $user->password = Hash::make($request->get('password'));
+            }
 
 			if(!$user->vendor && $user->is_vendor){
 				$vendo = new  Vendor();
