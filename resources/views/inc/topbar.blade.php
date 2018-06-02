@@ -17,8 +17,16 @@
                 <a href="{{route('login')}}" class="item"><i class="user icon"></i>{{Lang::get('strings.Sign Up')}}</a>
                 <a href="{{route('register')}}" class="item"><i class="add user icon"></i>{{Lang::get('strings.Sign In')}}</a>
             @else
-                <a href="{{route('account')}}" class="item"><i class="user icon"></i>{{Lang::get('strings.Account')}}</a>
-                <a href="{{route('logout')}}" class="item"><i class="remove user icon"></i>{{__('strings.Logout')}}</a>
+                <div class="ui dropdown item">
+                    {{$user->name}} {{$user->last_name}}<i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item"  href="{{ route("auth.account")}}"><i class="user icon"></i> {{__("Account")}}</a>
+                        @if($user->is_vendor)
+                            <a class="item"  href="{{ route("products.my")}}"><i class="idea icon"></i> {{__("My products")}}</a>
+                        @endif
+                        <a class="item"  href="{{route('logout')}}"><i class="remove user icon"></i>{{__('strings.Logout')}}</a>
+                    </div>
+                </div>
             @endif
 
         </div>

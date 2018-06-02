@@ -549,7 +549,7 @@
                             <div  class="ui cards">
                                 <div class="card product">
                                     <div class="image attachment">
-                                        <img class="product-image" src="{{ $new->images[0]->thumbs["400_400"] }}" alt="{{$new->name}}">
+                                        <img class="product-image" src="{{ $new->images[0]->thumbs["400_400"] or null}} " alt="{{$new->name}}">
                                         <div class="mini-icons">
                                             <img class="ui image mini" src="{{ $new->user->getAvatar() }}">
                                             <div class="add-bookmark popup right-center" data-content="Add to bookmark" data-variation="inverted"><i class="icon heart"></i></div>
