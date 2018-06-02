@@ -7,7 +7,7 @@
         <?php $images = json_decode(old("fileuploader-list-images"));?>
         $(document).ready(function () {
             $('input#images').fileuploader({
-                extensions: null,
+                extensions: ['jpg', 'jpeg', 'png'],
                 changeInput: ' ',
                 theme: 'thumbnails',
                 enableApi: true,
