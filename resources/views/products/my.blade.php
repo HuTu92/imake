@@ -42,6 +42,13 @@
                             <div class="description">
                                 <p>{{ $product->description }}</p>
                             </div>
+                            <form method="POST">
+                                {{--TODO make product enable disable logic--}}
+                                <button class="mini ui button red " type="submit" >
+                                    Disable
+                                </button>
+                                <input type="hidden" name="status" value="disable">
+                            </form>
                         </div>
                     </div>
                     @endforeach

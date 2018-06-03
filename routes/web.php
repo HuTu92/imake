@@ -115,7 +115,7 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 	 */
 
 	Route::get('/product-form-variation-fields',function (){
-	    return view("inc.product-form-variation-fields",  ["variation_number" => $_GET["variation_number"]] );
+	    return view("inc.product-form-variation-fields",  ["variation_number" => $_GET["variation_number"], "product_images" => $_GET["product_images"]] );
     });
 
     Route::post( '/images/store', [

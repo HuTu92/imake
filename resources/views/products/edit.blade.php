@@ -236,15 +236,6 @@
                             </div>
                         </div>
                         <div class="three fields">
-                            <div class="field {{ $errors->has('stock') ? 'error' : '' }}">
-                                <label>Stock *</label>
-                                <div class="ui left icon input">
-                                    <i class="cubes icon"></i>
-                                    <input placeholder="Stock" type="text" name="stock" value="{{ $product->stock }}"  required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="three fields">
                             <div class="field {{ $errors->has('regular_price') ? 'error' : '' }}">
                                 <label>Product regular price *</label>
                                 <div class="ui left icon input">
@@ -259,17 +250,11 @@
                                     <input placeholder="Sale price" type="text" name="sale_price" value="{{ $product->sale_price }}"  >
                                 </div>
                             </div>
-                            <div class="field {{ $errors->has('currency') ? 'error' : '' }}">
-                                <label>Currency *</label>
-                                <div class="ui selection dropdown">
-                                    <input name="currency" type="hidden" value="{{ $product->currency }}" required>
-                                    <i class="dropdown icon"></i>
-                                    <div class="default text">Currency</div>
-                                    <div class="menu">
-                                        <div class="item" data-value="usd"> <i class="united states flag"></i> (USD) American Dollar</div>
-                                        <div class="item" data-value="amd"> <i class="armenia flag"></i> (AMD) Armenian Dram</div>
-                                        <div class="item" data-value="rub"> <i class="russia flag"></i> (RUB) Russian Rouble</div>
-                                    </div>
+                            <div class="field {{ $errors->has('stock') ? 'error' : '' }}">
+                                <label>Stock *</label>
+                                <div class="ui left icon input">
+                                    <i class="cubes icon"></i>
+                                    <input placeholder="Stock" type="text" name="stock" value="{{ $product->stock }}"  required>
                                 </div>
                             </div>
                         </div>

@@ -11,12 +11,23 @@
             <input placeholder="Variation price" type="text" name="variations[{{$variation_number}}][price]" value="{{$variation["price"] or ""}}"  >
         </div>
     </div>
+    @if(!empty($product_images) && is_array($product_images))
     <div class="field">
-        <div class="ui left icon input">
-            <i class="file image outline icon"></i>
-            <input placeholder="Variation Image" type="text" name="variations[{{$variation_number}}][image]" value="{{$variation["image"] or ""}}"  >
+        <div class="ui fluid selection dropdown">
+            <input name="user" type="hidden">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Friend</div>
+            <div class="menu">
+                @foreach($product_images as $image)
+                    <div class="item" data-value="jenny">
+                        <img class="ui mini avatar image" src="{{\imake\Image::getThumb($image, [100,100])}}">
+                        {{substr(basename($image), 0, 10)}}
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
+    @endif
     <div class="field remove-variation">
         <div class="ui vertical animated button" tabindex="0">
             <div class="hidden content">Remove</div>

@@ -6,6 +6,7 @@
     <script>
         <?php $images = json_decode(old("fileuploader-list-images"));?>
         $(document).ready(function () {
+            window.product_images = [];
             $('input#images').fileuploader({
                 extensions: ['jpg', 'jpeg', 'png'],
                 changeInput: ' ',
@@ -118,6 +119,7 @@
                             textStatus.remove();
                             jqXHR.remove();
                         }else {
+                            window.product_images.push(data);
                             item.name = data;
                             item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
                             setTimeout(function () {
@@ -221,15 +223,6 @@
                             </div>
                         </div>
                         <div class="three fields">
-                            <div class="field {{ $errors->has('stock') ? 'error' : '' }}">
-                                <label>Stock *</label>
-                                <div class="ui left icon input">
-                                    <i class="cubes icon"></i>
-                                    <input placeholder="Stock" type="text" name="stock" value="{{old("stock")}}"  required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="three fields">
                             <div class="field {{ $errors->has('regular_price') ? 'error' : '' }}">
                                 <label>Product regular price *</label>
                                 <div class="ui left icon input">
@@ -244,17 +237,11 @@
                                     <input placeholder="Sale price" type="text" name="sale_price" value="{{old("sale_price")}}"  >
                                 </div>
                             </div>
-                            <div class="field {{ $errors->has('currency') ? 'error' : '' }}">
-                                <label>Currency *</label>
-                                <div class="ui selection dropdown">
-                                    <input name="currency" type="hidden" value="{{ old("currency") }}" required>
-                                    <i class="dropdown icon"></i>
-                                    <div class="default text">Currency</div>
-                                    <div class="menu">
-                                        <div class="item" data-value="usd"> <i class="united states flag"></i> (USD) American Dollar</div>
-                                        <div class="item" data-value="amd"> <i class="armenia flag"></i> (AMD) Armenian Dram</div>
-                                        <div class="item" data-value="rub"> <i class="russia flag"></i> (RUB) Russian Rouble</div>
-                                    </div>
+                            <div class="field {{ $errors->has('stock') ? 'error' : '' }}">
+                                <label>Stock *</label>
+                                <div class="ui left icon input">
+                                    <i class="cubes icon"></i>
+                                    <input placeholder="Stock" type="text" name="stock" value="{{old("stock")}}"  required>
                                 </div>
                             </div>
                         </div>
@@ -345,6 +332,8 @@
                         </div>
                     </div>
                     <div class="ui bottom attached tab segment" data-tab="variations">
+                        <?php dump(old("variations")); ?>
+
                         <div class="added-variations">
                             @if(old("variations"))
                                 @foreach(old("variations") as $variation_number => $variation)
@@ -353,7 +342,6 @@
                                 @endforeach
                             @endif
                         </div>
-                        <?php dump(old("variations")); ?>
 
                         <button class="mini ui button add-variation" type="button">
                             <i class="plus circle icon"></i>
@@ -387,8 +375,9 @@
 
             $(".add-variation").click(function (response) {
                 var variation_number = $.now();
-                $.get('/product-form-variation-fields', { variation_number: variation_number }, function(response){
+                $.get('/product-form-variation-fields', { variation_number: variation_number, product_images: window.product_images }, function(response){
                     $(".added-variations").append(response);
+                    $('.ui.dropdown').dropdown() ;
                 });
             })
             $(".added-variations").delegate(".remove-variation", "click", function () {

@@ -33,7 +33,7 @@ class ProductController extends Controller
 		$rules = [
 			'name' => 'required|string|max:255',
 			'description' => 'required|string|max:5000',
-			'currency' => 'required|string',
+			//'currency' => 'required|string',
 			'regular_price' => 'required|numeric',
 			'sale_price' => 'nullable|numeric|less_than_field:regular_price',
 			'categories' => 'exists:categories,id',
@@ -110,7 +110,7 @@ class ProductController extends Controller
 		    $product->height            = $request->get( 'height' );
 		    $product->weight            = $request->get( 'weight' );
 		    $product->stock             = $request->get( 'stock' );
-		    $product->currency          = $request->get( 'currency' );
+		   // $product->currency          = $request->get( 'currency' );
 		    $product->user_id           = $user->id;
 		    $product->vendor_id         = $user->vendor->id;
 

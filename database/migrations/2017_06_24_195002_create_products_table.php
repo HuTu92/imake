@@ -18,8 +18,9 @@ class CreateProductsTable extends Migration
             $table->timestamps();
             $table->string("name",255);
 	        $table->string("description",5000);
+	        $table->string("variations",5000)->nullable();
 
-            $table->string("currency", 20);
+           // $table->string("currency", 20);
 
             $table->double("regular_price")->unsigned()->nullable();
             $table->double("sale_price")->unsigned()->nullable();
