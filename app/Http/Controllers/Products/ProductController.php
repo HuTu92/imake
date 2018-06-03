@@ -39,7 +39,7 @@ class ProductController extends Controller
 			'categories' => 'exists:categories,id',
 			'colors' => 'exists:colors,id',
 			'tags' => 'exists:tags,id',
-			'fileuploader-list-images' => 'required|string|min:10', //TODO custom message (The fileuploader-list-images field is required.) default
+			'fileuploader-list-images' => 'required|string|min:10',
 			'length' => 'nullable|numeric',
 			'width' => 'nullable|numeric',
 			'height' => 'nullable|numeric',
@@ -47,7 +47,9 @@ class ProductController extends Controller
 			'stock' => 'required|integer',
 		];
 
-		return Validator::make($data, $rules);
+		return Validator::make($data, $rules, [
+            'fileuploader-list-images.required' => __('strings.fileuploader-list-images'),
+        ]);
 	}
 
 

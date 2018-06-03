@@ -12,4 +12,5 @@ return [
 	"access-denied" => "You do not have rights to the current action!",
 	"product-added-to-cart" => "Product added to cart",
 	"stock-error" => "Currently in stock there is no such quantity of this product",
+    "fileuploader-list-images" => "At least one image is required.",
 ];

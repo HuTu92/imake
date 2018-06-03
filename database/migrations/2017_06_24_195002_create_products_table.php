@@ -31,6 +31,7 @@ class CreateProductsTable extends Migration
 
             $table->boolean("manage_stock")->default(true);
             $table->integer("stock")->unsigned();
+            $table->boolean("disable")->default(false);
 
             $table->integer("user_id")->unsigned()->nullable();
             $table->foreign("user_id")->references("id")->on("users");
