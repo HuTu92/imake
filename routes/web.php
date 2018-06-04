@@ -12,6 +12,7 @@
 */
 use imake\Product;
 use imake\User;
+use Illuminate\Http\Request;
 
 Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 
@@ -89,6 +90,23 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 			return view( 'products.my', ['products' => $products] );
 		}
 	]);
+
+	Route::post("/products/change-status/", [
+		"as" => "products.status",
+		'middleware' => ['auth', 'auth.vendor'],
+		function (Request $request){
+			$user = Auth::user();
+			$product = Product::find($request->get('product_id'));
+            if($user->cannot("update", $product)){
+                return redirect()->route("products.my");
+            }
+            $product->disable = $request->get('product_status');
+            $product->save();
+            return redirect()->route("products.my")->with('message' , $product->name." updated");
+		}
+	]);
+
+
 	Route::resource("/products", "Products\ProductController" );
 
 

@@ -40,6 +40,7 @@ class ProductController extends Controller
 			'colors' => 'exists:colors,id',
 			'tags' => 'exists:tags,id',
 			'fileuploader-list-images' => 'required|string|min:10',
+
 			'length' => 'nullable|numeric',
 			'width' => 'nullable|numeric',
 			'height' => 'nullable|numeric',

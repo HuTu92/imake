@@ -42,12 +42,19 @@
                             <div class="description">
                                 <p>{{ $product->description }}</p>
                             </div>
-                            <form method="POST">
+                            <form method="POST" action="{{route('products.status')}}">
+                                {{csrf_field()}}
                                 {{--TODO make product enable disable logic--}}
-                                <button class="mini ui button red " type="submit" >
-                                    Disable
+                                @if($product->disable)
+                                    @php $button = 'Disable'; $color = 'red'; $set='0' @endphp
+                                @else
+                                    @php $button = 'Enable'; $color = 'blue'; $set='1' @endphp
+                                @endif
+                                <button class="mini ui button {{$color}} " type="submit" >
+                                    {{$button}}
                                 </button>
-                                <input type="hidden" name="status" value="disable">
+                                <input type="hidden" name="product_status" value="{{$set}}">
+                                <input type="hidden" name="product_id" value="{{$product->id}}">
                             </form>
                         </div>
                     </div>
