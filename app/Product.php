@@ -11,8 +11,8 @@ class Product extends Model
 
 
 	protected $table  = 'products';
-	public $appends = ['real_price'];
-	protected $fillable =  [
+    public $appends = ['real_price'];
+    protected $fillable =  [
 		'name', 'description', "currency", "regular_price", "sale_price", "weight", "length", "width", "height", "stock", "deleted_at", "variations"
 	];
     protected $dates = ['deleted_at'];

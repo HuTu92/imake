@@ -306,3 +306,9 @@ ul.pagination li{
 ul.pagination li:hover{
     background-color: #eee;
 }
+form.inline-forms{
+    display: inline-block;
+}
+form.inline-forms .ui.button{
+    vertical-align: bottom;
+}

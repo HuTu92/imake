@@ -31,7 +31,7 @@
                     @foreach($products as $product)
                     <div class="item">
                         <div class="ui small image">
-                            <a href="{{ route("products.edit", $product->id) }}"><img src="{{ $product->getGeneralImage() }}"></a>
+                            <a href="{{ route("products.edit", $product->id) }}"><img src="{{  \imake\Image::getThumb($product->getGeneralImage(), [400,400]) }}"></a>
                         </div>
                         <div class="content">
                             <div class="header"><a href="{{ route("products.edit", $product->id) }}">{{ $product->name }}</a></div>
@@ -42,33 +42,37 @@
                             <div class="description">
                                 <p>{{ $product->description }}</p>
                             </div>
-                            <form method="POST" action="{{route('products.status')}}">
+
+                            <form method="POST" action="{{route('products.status')}}" class="inline-forms">
                                 {{csrf_field()}}
                                 {{--TODO make product enable disable logic--}}
                                 @if(!$product->disable)
-                                    @php $button = 'Disable'; $color = 'red'; $set='1' @endphp
+                                    @php $button = 'Disable'; $color = 'grey'; $set='1' @endphp
                                 @else
                                     @php $button = 'Enable'; $color = 'blue'; $set='0' @endphp
                                 @endif
-                                <button class="mini ui button {{$color}} " type="submit" >
-                                    {{$button}}
-                                </button>
-                                <a href="{{ route("products.edit", $product->id) }}">
-                                    <button class="mini ui button blue" type="button" >
-                                    Edit
-                                    </button>
-                                </a>
                                 <input type="hidden" name="product_status" value="{{$set}}">
                                 <input type="hidden" name="product_id" value="{{$product->id}}">
+
+                                <button class="mini ui button {{$color}} " type="submit" >
+                                    <i class="trash icon"></i>
+                                    {{$button}}
+                                </button>
+                                <a class="mini ui button blue " href="{{ route("products.edit", $product->id) }}">
+                                    <i class="edit icon"></i>
+                                    Edit
+                                </a>
                             </form>
-                            <p>
-                            <form method="POST" action="{{route('products.delete')}}">
+
+                            <form method="POST" action="{{route('products.delete')}}" class="inline-forms">
                                 {{csrf_field()}}
-                                <button class="mini ui button red" type="submit"  >
+                                <button class="mini ui button red" type="submit"  onclick="return confirm('Delete product?')">
+                                    <i class="trash icon"></i>
                                     Delete
                                 </button>
-                                <input type="hidden" name="product_delete" value="{{$product->id}}">
+                                <input type="hidden" name="product_delete" value="{{$product->id}}" >
                             </form>
+
                         </div>
                     </div>
                     @endforeach

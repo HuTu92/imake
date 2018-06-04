@@ -7,7 +7,6 @@
             ?>
             @foreach($user->carts as $item)
                 <?php
-                    ;
                     $total = $total + $item->product->real_price * $item->count?>
                 <div class="item">
                     <div class="ui middle aligned divided list">
