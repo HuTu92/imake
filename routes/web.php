@@ -125,6 +125,8 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 	]);
 
 
+
+
 	/*
 	 * Ajax Requests
 	 */

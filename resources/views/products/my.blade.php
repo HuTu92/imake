@@ -46,15 +46,15 @@
                             <form method="POST" action="{{route('products.status')}}" class="inline-forms">
                                 {{csrf_field()}}
                                 @if(!$product->disable)
-                                    @php $button = 'Disable'; $color = 'grey'; $set='1' @endphp
+                                    @php $button = 'Disable'; $color = 'grey'; $set='1'; $icon='delete' @endphp
                                 @else
-                                    @php $button = 'Enable'; $color = 'blue'; $set='0' @endphp
+                                    @php $button = 'Enable'; $color = 'blue'; $set='0' ; $icon='checkmark' @endphp
                                 @endif
                                 <input type="hidden" name="product_status" value="{{$set}}">
                                 <input type="hidden" name="product_id" value="{{$product->id}}">
 
                                 <button class="mini ui button {{$color}} " type="submit" >
-                                    <i class="trash icon"></i>
+                                    <i class="{{$icon}} icon"></i>
                                     {{$button}}
                                 </button>
                                 <a class="mini ui button blue " href="{{ route("products.edit", $product->id) }}">
