@@ -45,7 +45,6 @@
 
                             <form method="POST" action="{{route('products.status')}}" class="inline-forms">
                                 {{csrf_field()}}
-                                {{--TODO make product enable disable logic--}}
                                 @if(!$product->disable)
                                     @php $button = 'Disable'; $color = 'grey'; $set='1' @endphp
                                 @else
