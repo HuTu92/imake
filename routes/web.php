@@ -14,6 +14,7 @@ use imake\Product;
 use imake\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use imake\Cart;
 
 Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 
@@ -116,6 +117,12 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
             if($user->cannot("update", $product)){
                 return redirect()->route("products.my");
             }
+            $carts = Cart::where('product_id', $request->get('product_delete'))->get();
+            if ($carts){
+                foreach ($carts as $cart) {
+                    $cart->delete();
+                }
+            };
             $product->delete();
             return redirect()->route("products.my")->with('message' , $product->name." deleted");
 		}
