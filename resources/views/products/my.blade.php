@@ -45,10 +45,10 @@
                             <form method="POST" action="{{route('products.status')}}">
                                 {{csrf_field()}}
                                 {{--TODO make product enable disable logic--}}
-                                @if($product->disable)
-                                    @php $button = 'Disable'; $color = 'red'; $set='0' @endphp
+                                @if(!$product->disable)
+                                    @php $button = 'Disable'; $color = 'red'; $set='1' @endphp
                                 @else
-                                    @php $button = 'Enable'; $color = 'blue'; $set='1' @endphp
+                                    @php $button = 'Enable'; $color = 'blue'; $set='0' @endphp
                                 @endif
                                 <button class="mini ui button {{$color}} " type="submit" >
                                     {{$button}}
