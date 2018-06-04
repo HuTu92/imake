@@ -53,8 +53,21 @@
                                 <button class="mini ui button {{$color}} " type="submit" >
                                     {{$button}}
                                 </button>
+                                <a href="{{ route("products.edit", $product->id) }}">
+                                    <button class="mini ui button blue" type="button" >
+                                    Edit
+                                    </button>
+                                </a>
                                 <input type="hidden" name="product_status" value="{{$set}}">
                                 <input type="hidden" name="product_id" value="{{$product->id}}">
+                            </form>
+                            <p>
+                            <form method="POST" action="{{route('products.delete')}}">
+                                {{csrf_field()}}
+                                <button class="mini ui button red" type="submit"  >
+                                    Delete
+                                </button>
+                                <input type="hidden" name="product_delete" value="{{$product->id}}">
                             </form>
                         </div>
                     </div>

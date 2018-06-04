@@ -13,6 +13,7 @@
 use imake\Product;
 use imake\User;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 
@@ -103,6 +104,20 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
             $product->disable = $request->get('product_status');
             $product->save();
             return redirect()->route("products.my")->with('message' , $product->name." updated");
+		}
+	]);
+
+	Route::post("/products/delete/", [
+		"as" => "products.delete",
+		'middleware' => ['auth', 'auth.vendor'],
+		function (Request $request){
+			$user = Auth::user();
+			$product = Product::find($request->get('product_delete'));
+            if($user->cannot("update", $product)){
+                return redirect()->route("products.my");
+            }
+            $product->delete();
+            return redirect()->route("products.my")->with('message' , $product->name." deleted");
 		}
 	]);
 

@@ -13,10 +13,11 @@ class Product extends Model
 	protected $table  = 'products';
 	public $appends = ['real_price'];
 	protected $fillable =  [
-		'name', 'description', "currency", "regular_price", "sale_price", "weight", "length", "width", "height", "stock"
+		'name', 'description', "currency", "regular_price", "sale_price", "weight", "length", "width", "height", "stock", "deleted_at"
 	];
+    protected $dates = ['deleted_at'];
 
-	public function user(){
+    public function user(){
 		return $this->belongsTo("imake\User", "user_id", "id");
 	}
 
