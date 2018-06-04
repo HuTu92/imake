@@ -14,6 +14,7 @@ use imake\Image;
 use imake\Product;
 use imake\Tag;
 use imake\User;
+use imake\Cart;
 
 class ProductController extends Controller
 {
@@ -274,6 +275,30 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function productDisable(Request $request)
+    {
+            $user = Auth::user();
+            $product = Product::find($request->get('product_id'));
+            if($user->cannot("update", $product)){
+                return redirect()->route("products.my");
+            }
+            $product->disable = $request->get('product_status');
+            $product->save();
+            return redirect()->route("products.my")->with('message' , $product->name." updated");
+    }
+
+    public function productDelete(Request $request)
+    {
+            $user = Auth::user();
+            $product = Product::find($request->get('product_delete'));
+            if($user->cannot("update", $product)){
+                return redirect()->route("products.my");
+            }
+            Cart::where('product_id', $request->get('product_delete'))->delete();
+            $product->delete();
+            return redirect()->route("products.my")->with('message' , $product->name." deleted");
+    }
+
     public function destroy($id)
     {
         //
