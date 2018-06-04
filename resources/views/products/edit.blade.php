@@ -217,6 +217,7 @@
                     <a class="active item" data-tab="general">General</a>
                     <a class="item" data-tab="attributes">Attributes</a>
                     <a class="item" data-tab="images">Images</a>
+                    <a class="item" data-tab="variations">Variations</a>
                 </div>
                 <form class="ui form error no-border" enctype="multipart/form-data" method="post"  action="{{ route('products.update', ["id" => $product->id]) }}">
                     <div class="ui bottom attached active tab segment" data-tab="general">
@@ -346,6 +347,36 @@
                             </div>
                         </div>
                     </div>
+                    <div class="ui bottom attached tab segment" data-tab="variations">
+                        <?php
+                        $variations = unserialize($product->variations);
+                        if(old("variations")){
+                            $variations = old("variations");
+                        }
+
+                        $variations_images = [];
+                        if(!empty($product->images)){
+                            foreach ($product->images as $img){
+                                $variations_images[] = $img->file;
+                            }
+                        }
+                        ?>
+
+                        <div class="added-variations">
+                            @if($variations)
+                                @foreach($variations as $variation_number => $variation)
+
+                                    @include("inc.product-form-variation-fields", ["variation" => $variation, "variation_number" => $variation_number, "product_images" => $variations_images])
+                                @endforeach
+                            @endif
+                        </div>
+
+                        <button class="mini ui button add-variation" type="button">
+                            <i class="plus circle icon"></i>
+                            Add variation
+                        </button>
+                    </div>
+
 
                     <button class="ui button primary"><i class="save icon"></i> Save Product</button>
                 </form>

@@ -24,8 +24,7 @@
                 ],
                 @endif
                 onSelect: function(item, listEl, parentEl, newInputEl, inputEl) {
-                    inputEl.test = 88744
-                    console.log(inputEl)
+
                 },
                 thumbnails: {
                     box: '<div class="fileuploader-items">' +
@@ -120,6 +119,7 @@
                             jqXHR.remove();
                         }else {
                             window.product_images.push(data);
+                            newInputEl.img = data;
                             item.name = data;
                             item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
                             setTimeout(function () {
@@ -169,7 +169,12 @@
                         });
                     }
                 },
-                onRemove: function(item) {
+                onRemove: function(item, input, inp2, inputEl) {
+                    window.product_images.find(function (element, index, array) {
+                        if(element === array[index]){
+                            window.product_images.splice(index, 1)
+                        }
+                    })
                 }
             });
         })
@@ -337,7 +342,6 @@
                         <div class="added-variations">
                             @if(old("variations"))
                                 @foreach(old("variations") as $variation_number => $variation)
-
                                     @include("inc.product-form-variation-fields", ["variation" => $variation, "variation_number" => $variation_number])
                                 @endforeach
                             @endif

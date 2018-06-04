@@ -104,6 +104,7 @@ class ProductController extends Controller
 
 		    $product->name              = $request->get( 'name' );
 		    $product->description       = $request->get( 'description' );
+		    $product->variations        = serialize($request->get( 'variations' ));
 		    $product->regular_price     = $request->get( 'regular_price' );
 		    $product->sale_price        = $request->get( 'sale_price' );
 		    $product->length            = $request->get( 'length' );
@@ -250,7 +251,15 @@ class ProductController extends Controller
                 }
             }
 
-		    $product->update($request->all());
+
+            $product_request = $request->all();
+            $product_request["variations"] = serialize($request->get("variations"));
+
+           // $request->merge(["variations", serialize($request->get("variations"))]);
+
+
+
+            $product->update($product_request);
 
 
 		    return redirect()->back()->with("message", Lang::get('strings.product-success-updated'));
