@@ -14,12 +14,16 @@
     @if(!empty($product_images) && is_array($product_images))
     <div class="field">
         <div class="ui fluid selection dropdown">
-            <input name="user" type="hidden">
+            <input name="variations[{{$variation_number}}][image]" type="hidden"
+            @if(!empty($variation["image"]))
+                value="{{$variation["image"]}}"
+            @endif>
             <i class="dropdown icon"></i>
-            <div class="default text">Select Friend</div>
+            <div class="default text">Select Image</div>
+
             <div class="menu">
                 @foreach($product_images as $image)
-                    <div class="item" data-value="jenny">
+                    <div class="item" data-value="{{$image}}">
                         <img class="ui mini avatar image" src="{{\imake\Image::getThumb($image, [100,100])}}">
                         {{substr(basename($image), 0, 10)}}
                     </div>
