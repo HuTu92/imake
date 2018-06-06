@@ -96,31 +96,13 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 	Route::post("/products/change-status/", [
 		"as" => "products.status",
 		'middleware' => ['auth', 'auth.vendor'],
-		function (Request $request){
-			$user = Auth::user();
-			$product = Product::find($request->get('product_id'));
-            if($user->cannot("update", $product)){
-                return redirect()->route("products.my");
-            }
-            $product->disable = $request->get('product_status');
-            $product->save();
-            return redirect()->route("products.my")->with('message' , $product->name." updated");
-		}
+        'uses' => 'Products\ProductController@productDisable'
 	]);
 
 	Route::post("/products/delete/", [
 		"as" => "products.delete",
 		'middleware' => ['auth', 'auth.vendor'],
-		function (Request $request){
-			$user = Auth::user();
-			$product = Product::find($request->get('product_delete'));
-            if($user->cannot("update", $product)){
-                return redirect()->route("products.my");
-            }
-            Cart::where('product_id', $request->get('product_delete'))->delete();
-            $product->delete();
-            return redirect()->route("products.my")->with('message' , $product->name." deleted");
-		}
+        'uses' => 'Products\ProductController@productDelete',
 	]);
 
 

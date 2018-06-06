@@ -46,9 +46,9 @@
                                 {{csrf_field()}}
                                 {{--TODO make product enable disable logic--}}
                                 @if(!$product->disable)
-                                    @php $button = 'Disable'; $color = 'grey'; $set='1'; $icon = 'times'; @endphp
+                                    @php $button = 'Disable'; $color = 'grey'; $set='1' @endphp
                                 @else
-                                    @php $button = 'Enable'; $color = 'blue'; $set='0'; $icon = 'check'; @endphp
+                                    @php $button = 'Enable'; $color = 'blue'; $set='0' @endphp
                                 @endif
                                 <input type="hidden" name="product_status" value="{{$set}}">
                                 <input type="hidden" name="product_id" value="{{$product->id}}">
