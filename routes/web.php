@@ -45,6 +45,11 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 		'uses' => 'CartController@update',
 	] );
 
+    Route::post("/cart/destroy", [
+        "as" => "cart.destroy",
+        'middleware' => 'auth',
+        'uses' => 'CartController@destroy',
+    ]);
 
 
 	Route::get( '/account', [

@@ -45,6 +45,9 @@ class Product extends Model
 		return $this->belongsToMany("imake\Product", "order_product");
 	}
 
+	public function getStock(){
+	    return $this->stock;
+    }
 
 	public function getRealPriceAttribute()
 	{

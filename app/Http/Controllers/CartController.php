@@ -79,4 +79,18 @@ class CartController extends Controller
 
 		return redirect()->back()->with("message", Lang::get('strings.product-added-to-cart'));
 	}
+
+
+
+    public function destroy(Request $request)
+    {
+        $user = Auth::user();
+        $cart = Cart::findOrFail($request->get('cart_id'));
+        if($user->cannot("update", $cart)){
+            return redirect()->route("cart");
+        };
+        $cart->delete();
+        return redirect()->route("cart")->with('message' ,"Product has been deleted");
+    }
+
 }
