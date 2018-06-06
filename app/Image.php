@@ -47,6 +47,9 @@ class Image extends Model
 	// CUSTOM
 
 	public static function getThumb($image,  Array $size ){
+	    if(empty($image) || empty($size)){
+	        return null;
+        }
 		$basename =  basename($image);
 		return str_replace($basename, $size[0]."_".$size[1].'/'.$basename, $image);
 	}

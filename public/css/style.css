@@ -312,3 +312,11 @@ form.inline-forms{
 form.inline-forms .ui.button{
     vertical-align: bottom;
 }
+.added-variations .selection.dropdown .text {
+    padding-left: 15px;
+}
+.added-variations .selection.dropdown .text .ui.mini.avatar.image{
+    position: absolute;
+    left: 5px;
+    top: 12px;
+}

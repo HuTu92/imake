@@ -5,8 +5,8 @@
     <script src="{{asset('js/jquery.fileuploader.min.js')}}"></script>
     <script>
         <?php $images = json_decode(old("fileuploader-list-images"));?>
+        window.product_images = [];
         $(document).ready(function () {
-            window.product_images = [];
             $('input#images').fileuploader({
                 extensions: ['jpg', 'jpeg', 'png'],
                 changeInput: ' ',
@@ -164,7 +164,6 @@
                             _list.push({
                                 name: item.name,
                                 index: item.index,
-                                test: 888
                             });
                         });
                     }
