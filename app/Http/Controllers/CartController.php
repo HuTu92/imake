@@ -63,6 +63,12 @@ class CartController extends Controller
 			return redirect()->back()->withErrors(["error" =>  Lang::get('strings.stock-error')])->withInput($request->input());
 		}
 
+		if( $product->disable ){
+			return redirect()->back()->withErrors(["error" =>  Lang::get('strings.disable-error')])->withInput($request->input());
+		}
+
+
+
 
 
 		if(!$old_count) {
