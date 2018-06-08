@@ -3,10 +3,14 @@
 @section('content')
     <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.fileuploader.css')}}">
     <script src="{{asset('js/jquery.fileuploader.min.js')}}"></script>
+    <script src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
     <script>
         <?php $images = json_decode(old("fileuploader-list-images"));?>
+        window.product_images = [];
+        tinymce.init({
+            selector: 'textarea'
+        });
         $(document).ready(function () {
-            window.product_images = [];
             $('input#images').fileuploader({
                 extensions: ['jpg', 'jpeg', 'png'],
                 changeInput: ' ',
@@ -164,7 +168,6 @@
                             _list.push({
                                 name: item.name,
                                 index: item.index,
-                                test: 888
                             });
                         });
                     }

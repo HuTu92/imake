@@ -13,6 +13,8 @@ $(document).ready(function() {
      * end custom
      */
 
+    $('.popup').popup();
+
     // fix main menu to page on passing
     $('.main.menu').stick_in_parent({parent: '.main'});
     // lazy load images

@@ -13,4 +13,5 @@ return [
 	"product-added-to-cart" => "Product added to cart",
 	"stock-error" => "Currently in stock there is no such quantity of this product",
     "fileuploader-list-images" => "At least one image is required.",
+    "product-deleted-from-cart" => "Product has been deleted from cart",
 ];

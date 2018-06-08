@@ -3,9 +3,15 @@
 @section('content')
     <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.fileuploader.css')}}">
     <script src="{{asset('js/jquery.fileuploader.min.js')}}"></script>
+    <script src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
     <script>
+        window.product_images = [];
+        tinymce.init({
+            selector: 'textarea'
+        });
         <?php $images = json_decode(old("fileuploader-list-images"));?>
         $(document).ready(function () {
+
             $('input#images').fileuploader({
                 extensions: ['jpg', 'jpeg', 'png'],
                 changeInput: ' ',
@@ -125,6 +131,7 @@
                             textStatus.remove();
                             jqXHR.remove();
                         }else {
+                            window.product_images.push(data);
                             item.name = data;
                             item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
                             setTimeout(function () {
@@ -169,7 +176,6 @@
                             _list.push({
                                 name: item.name,
                                 index: item.index,
-                                test: 888
                             });
                         });
                     }
@@ -356,16 +362,23 @@
 
                         $variations_images = [];
                         if(!empty($product->images)){
+                            $cnt = 0;
                             foreach ($product->images as $img){
                                 $variations_images[] = $img->file;
+                                ?>
+                                <script>
+                                    window.product_images[{{$cnt}}] = '{{$img->file}}';
+                                </script>
+                    <?php
+                            $cnt++;
                             }
                         }
-                        ?>
+
+                    ?>
 
                         <div class="added-variations">
                             @if($variations)
                                 @foreach($variations as $variation_number => $variation)
-
                                     @include("inc.product-form-variation-fields", ["variation" => $variation, "variation_number" => $variation_number, "product_images" => $variations_images])
                                 @endforeach
                             @endif
@@ -399,6 +412,18 @@
 
                 }
             });
+
+            $(".add-variation").click(function () {
+                var variation_number = $.now();
+                $.get('/product-form-variation-fields', { variation_number: variation_number, product_images: window.product_images }, function(response){
+                    $(".added-variations").append(response);
+                    $('.ui.dropdown').dropdown() ;
+                });
+            })
+            $(".added-variations").delegate(".remove-variation", "click", function () {
+                $(this).closest(".variation").remove()
+            })
+
         })
     </script>
 @endsection

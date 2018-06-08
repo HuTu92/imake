@@ -1,18 +1,24 @@
-<div class="inline fields variation">
-    <div class="field">
+<div class="inline fields variation ui grid">
+    <div class="field five wide column">
         <div class="ui left icon input">
             <i class="tasks icon"></i>
             <input placeholder="Variation Name" type="text" name="variations[{{$variation_number}}][name]" value="{{$variation["name"] or ""}}"  >
         </div>
     </div>
-    <div class="field mini">
+    <div class="field mini three wide column">
         <div class="ui left icon input">
             <i class="money icon"></i>
-            <input placeholder="Variation price" type="text" name="variations[{{$variation_number}}][price]" value="{{$variation["price"] or ""}}"  >
+            <input placeholder="Var. price" type="text" name="variations[{{$variation_number}}][price]" value="{{$variation["price"] or ""}}"  >
+        </div>
+    </div>
+    <div class="field mini three wide column">
+        <div class="ui left icon input">
+            <i class="money icon"></i>
+            <input placeholder="Var. in stock" type="text" name="variations[{{$variation_number}}][stock]" value="{{$variation["stock"] or ""}}"  >
         </div>
     </div>
     @if(!empty($product_images) && is_array($product_images))
-    <div class="field">
+    <div class="field three wide column">
         <div class="ui fluid selection dropdown">
             <input name="variations[{{$variation_number}}][image]" type="hidden"
             @if(!empty($variation["image"]))
@@ -32,7 +38,7 @@
         </div>
     </div>
     @endif
-    <div class="field remove-variation">
+    <div class="field remove-variation two wide column">
         <div class="ui vertical animated button" tabindex="0">
             <div class="hidden content">Remove</div>
             <div class="visible content">
