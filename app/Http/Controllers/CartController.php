@@ -48,6 +48,8 @@ class CartController extends Controller
 		$product = Product::findOrFail($request->get("product_id"));
 		$user = Auth::user();
 
+
+
 		$curreent_product_in_cart = $user->carts->where("product_id", $request->get("product_id"))->first();
 
 		if($curreent_product_in_cart){
@@ -90,7 +92,7 @@ class CartController extends Controller
             return redirect()->route("cart");
         };
         $cart->delete();
-        return redirect()->route("cart")->with('message' ,"Product has been deleted");
+        return redirect()->route("cart")->with('message' ,__("strings.product-deleted-from-cart"));
     }
 
 }

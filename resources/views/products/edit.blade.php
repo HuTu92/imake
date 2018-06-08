@@ -3,8 +3,12 @@
 @section('content')
     <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.fileuploader.css')}}">
     <script src="{{asset('js/jquery.fileuploader.min.js')}}"></script>
+    <script src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
     <script>
         window.product_images = [];
+        tinymce.init({
+            selector: 'textarea'
+        });
         <?php $images = json_decode(old("fileuploader-list-images"));?>
         $(document).ready(function () {
 

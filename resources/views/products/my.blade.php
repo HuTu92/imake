@@ -36,19 +36,22 @@
                         <div class="content">
                             <div class="header"><a href="{{ route("products.show", $product->id) }}">{{ $product->name }}</a></div>
                             <div class="meta">
-                                <span class="price"><i class="dollar sign icon"></i> {{ $product->real_price }}</span>
+                                <span class="price popup" data-content="Price"><i class="dollar sign icon"></i> {{ $product->real_price }}</span>
+                                <span class="stock popup" data-content="Stock"><i class="cubes icon"></i> {{ $product->getStock() }}</span>
                             </div>
-                            <div class="description">
-                                <p>{{ $product->description }}</p>
+                            <div class="categories">
+                                @foreach($product->categories as $category)
+                                    {{ ucfirst($category->category_name)}},
+                                @endforeach
                             </div>
 
                             <form method="POST" action="{{route('products.status')}}" class="inline-forms">
                                 {{csrf_field()}}
                                 {{--TODO make product enable disable logic--}}
                                 @if(!$product->disable)
-                                    @php $button = 'Disable'; $color = 'grey'; $set='1' @endphp
+                                    @php $button = 'Disable'; $color = 'grey'; $set='1'; $icon = 'times';@endphp
                                 @else
-                                    @php $button = 'Enable'; $color = 'blue'; $set='0' @endphp
+                                    @php $button = 'Enable'; $color = 'blue'; $set='0'; $icon = 'check'; @endphp
                                 @endif
                                 <input type="hidden" name="product_status" value="{{$set}}">
                                 <input type="hidden" name="product_id" value="{{$product->id}}">
