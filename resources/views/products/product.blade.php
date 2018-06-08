@@ -54,32 +54,34 @@
                         <div class="content">
                             {{$product->description}}
                         </div>
-                            <form method="post" action="{{ route("cart.update") }}">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="product_id" value="{{ $product->id }}" readonly>
-                                <div class="attributes-and-color">
-                                    @if($product->colors->count())
-                                    <div class="ui sub header">Color</div>
-                                    <select class="ui search dropdown">
-                                        @foreach($product->colors as $color)
-                                            <option value="{{ $color->id}}">{{ ucfirst($color->color_name)}}</option>
-                                        @endforeach
-                                    </select>
-                                    @endif
-                                    <div class="ui input">
-                                        <input placeholder="Count" name="count" id="count" type="number" min="1">
+                            @if(empty($unattainable))
+                                <form method="post" action="{{ route("cart.update") }}">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}" readonly>
+                                    <div class="attributes-and-color">
+                                        @if($product->colors->count())
+                                        <div class="ui sub header">Color</div>
+                                        <select class="ui search dropdown">
+                                            @foreach($product->colors as $color)
+                                                <option value="{{ $color->id}}">{{ ucfirst($color->color_name)}}</option>
+                                            @endforeach
+                                        </select>
+                                        @endif
+                                        <div class="ui input">
+                                            <input placeholder="Count" name="count" id="count" type="number" min="1">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="total-add-to-card" style="display: none">
-                                    <div class="ui divider"></div>
-                                    <span class="ui blue header total"></span>
-                                    <button class="ui basic active blue button right floated add-to-cart" >
-                                        Add to cart
-                                        <i class="cart icon"></i>
-                                    </button>
-                                    <div class="ui divider"></div>
-                                </div>
-                            </form>
+                                    <div class="total-add-to-card" style="display: none">
+                                        <div class="ui divider"></div>
+                                        <span class="ui blue header total"></span>
+                                        <button class="ui basic active blue button right floated add-to-cart" >
+                                            Add to cart
+                                            <i class="cart icon"></i>
+                                        </button>
+                                        <div class="ui divider"></div>
+                                    </div>
+                                </form>
+                            @endif
                         <div class="ui divided selection list">
                             @if($product->categories->count())
                             <a class="item">

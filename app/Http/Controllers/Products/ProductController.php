@@ -166,6 +166,9 @@ class ProductController extends Controller
     public function show($id)
     {
     	if($product = Product::with("categories", "colors", "tags", "vendor", "user", "images")->find($id)){
+    	    if($product->disable or $product->stock == 0){
+    	        return view( 'products.product', ["product" => $product, "unattainable" => "unattainable"] )->withErrors(["error" =>  __('strings.disable-error')]);
+            }
 		    return view( 'products.product', ["product" => $product] );
 	    }
 	    abort(404);
