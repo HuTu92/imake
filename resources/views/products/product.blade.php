@@ -145,8 +145,10 @@
                 </div>
                 <div class="ui top attached tabular tabs menu">
                     <a class="item active" data-tab="first"><i class="icon browser"></i> <span>Description</span></a>
+                    {{--TODO description tabs: PASH --}}
                     <a class="item" data-tab="second"><i class="icon tags"></i> <span>Specification</span></a>
-                    <a class="item" data-tab="third"><i class="icon comments outline"></i> <span>Reviews (5)</span></a>
+                    {{--TODO comments tabs: PASH --}}
+                    <a class="item" data-tab="third"><i class="icon comments outline"></i> <span>Comments (5)</span></a>
                 </div>
                 <div class="ui bottom attached tab segment active" data-tab="first">
 

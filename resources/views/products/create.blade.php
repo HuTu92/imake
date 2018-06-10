@@ -6,7 +6,6 @@
     <script src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
     <script>
         <?php $images = json_decode(old("fileuploader-list-images"));?>
-        window.product_images = [];
         tinymce.init({
             selector: 'textarea'
         });
@@ -122,7 +121,6 @@
                             textStatus.remove();
                             jqXHR.remove();
                         }else {
-                            window.product_images.push(data);
                             newInputEl.img = data;
                             item.name = data;
                             item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
@@ -173,11 +171,6 @@
                     }
                 },
                 onRemove: function(item, input, inp2, inputEl) {
-                    window.product_images.find(function (element, index, array) {
-                        if(element === array[index]){
-                            window.product_images.splice(index, 1)
-                        }
-                    })
                 }
             });
         })
@@ -212,7 +205,6 @@
                     <a class="active item" data-tab="general">General</a>
                     <a class="item" data-tab="attributes">Attributes</a>
                     <a class="item" data-tab="images">Images</a>
-                    <a class="item" data-tab="variations">Variations</a>
                 </div>
                     <form class="ui form error no-border" enctype="multipart/form-data" method="post" action="{{ route('products.store') }}">
                     <div class="ui bottom attached active tab segment" data-tab="general">
@@ -227,7 +219,7 @@
                         <div class="field {{ $errors->has('description') ? 'error' : '' }}">
                             <label>Product description *</label>
                             <div class="ui left icon input">
-                                <textarea placeholder="Shop description" name="description"  required>{{ old('description') }}</textarea>
+                                <textarea placeholder="Shop description" name="description"  >{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="three fields">
@@ -339,22 +331,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ui bottom attached tab segment" data-tab="variations">
-                        <?php dump(old("variations")); ?>
-
-                        <div class="added-variations">
-                            @if(old("variations"))
-                                @foreach(old("variations") as $variation_number => $variation)
-                                    @include("inc.product-form-variation-fields", ["variation" => $variation, "variation_number" => $variation_number])
-                                @endforeach
-                            @endif
-                        </div>
-
-                        <button class="mini ui button add-variation" type="button">
-                            <i class="plus circle icon"></i>
-                            Add variation
-                        </button>
-                    </div>
 
 
                         <button class="ui button primary" ><i class="save icon"></i> Save Product</button>
@@ -378,18 +354,6 @@
 
                 }
             });
-
-
-            $(".add-variation").click(function (response) {
-                var variation_number = $.now();
-                $.get('/product-form-variation-fields', { variation_number: variation_number, product_images: window.product_images }, function(response){
-                    $(".added-variations").append(response);
-                    $('.ui.dropdown').dropdown() ;
-                });
-            })
-            $(".added-variations").delegate(".remove-variation", "click", function () {
-                $(this).closest(".variation").remove()
-            })
         })
     </script>
 @endsection

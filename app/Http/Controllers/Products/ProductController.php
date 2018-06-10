@@ -62,8 +62,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-	    return view( 'shop' );
+        //TODO products list select form db :PASH
+	    return view( 'products.products' );
     }
 
     /**
@@ -105,7 +105,7 @@ class ProductController extends Controller
 
 		    $product->name              = $request->get( 'name' );
 		    $product->description       = $request->get( 'description' );
-		    $product->variations        = serialize($request->get( 'variations' ));
+		   // $product->variations        = serialize($request->get( 'variations' ));
 		    $product->regular_price     = $request->get( 'regular_price' );
 		    $product->sale_price        = $request->get( 'sale_price' );
 		    $product->length            = $request->get( 'length' );
@@ -257,11 +257,6 @@ class ProductController extends Controller
 
 
             $product_request = $request->all();
-            $product_request["variations"] = serialize($request->get("variations"));
-
-           // $request->merge(["variations", serialize($request->get("variations"))]);
-
-
 
             $product->update($product_request);
 
@@ -278,6 +273,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function destroy($id)
+    {
+        //
+    }
+
+
     public function productDisable(Request $request)
     {
             $user = Auth::user();
@@ -292,6 +293,7 @@ class ProductController extends Controller
 
     public function productDelete(Request $request)
     {
+            //TODO move to destroy method: PASH
             $user = Auth::user();
             $product = Product::find($request->get('product_delete'));
             if($user->cannot("update", $product)){
@@ -302,8 +304,5 @@ class ProductController extends Controller
             return redirect()->route("products.my")->with('message' , $product->name." deleted");
     }
 
-    public function destroy($id)
-    {
-        //
-    }
+
 }
