@@ -199,6 +199,7 @@
                                 <img src="{{ asset('images/demo/matt.jpg') }}">
                             </a>
                             <div class="content">
+
                                 <a class="author">Elliot Fu</a>
                                 <div class="ui mini star rating" data-rating="4"></div>
                                 <div class="metadata">

@@ -2,6 +2,7 @@
 
 namespace imake\Providers;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 use Illuminate\Support\Facades\Blade;
@@ -23,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function($view) {
             $view->with('user', Auth::user());
         });
+
+
     }
 
     /**

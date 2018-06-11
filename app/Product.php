@@ -66,4 +66,9 @@ class Product extends Model
 	public function getGeneralImage(){
 		return $this->images->first()["file"];
 	}
+
+
+
+
+
 }
