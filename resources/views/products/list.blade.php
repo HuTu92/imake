@@ -105,7 +105,6 @@
             <div class="page-conent column">
                 <div class="products">
                     <div  class="ui cards">
-
                         @foreach($products as $product)
                             <div class="card product">
                                 <div class="image attachment">
@@ -115,7 +114,6 @@
                                         <div class="add-bookmark popup right-center" data-content="Add to bookmark" data-variation="inverted"><i class="icon heart"></i></div>
                                         <div class="add-bookmark popup right-center" data-content="Compare" data-variation="inverted"><i class="sort content ascending icon"></i></div>
                                     </div>
-
                                     <div class="mini-attachments">
                                         @foreach($product->images->slice(0, 5) as $product_image)
                                             <img src="{{ $product_image->thumbs["400_400"] }}" class="ui mini image">
@@ -130,14 +128,12 @@
                                         @endforeach
                                     </div>
                                     <div class="description">
-
                                         {{$product->currency}} {{ $product->regular_price }}  @if($product->sale_price) -  {{$product->currency}} {{ $product->sale_price }} @endif
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
-
                 </div>
                 <div class="ui divider"></div>
                     {{$products->links()}}

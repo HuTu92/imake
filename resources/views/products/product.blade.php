@@ -145,35 +145,14 @@
                 </div>
                 <div class="ui top attached tabular tabs menu">
                     <a class="item active" data-tab="first"><i class="icon browser"></i> <span>Description</span></a>
-                    {{--TODO description tabs: PASH --}}
                     <a class="item" data-tab="second"><i class="icon tags"></i> <span>Specification</span></a>
                     {{--TODO comments tabs: PASH --}}
                     <a class="item" data-tab="third"><i class="icon comments outline"></i> <span>Comments (5)</span></a>
                 </div>
                 <div class="ui bottom attached tab segment active" data-tab="first">
 
-                    <h2>Product Description</h2>
+                    {!! $product->description !!}
 
-                    <h6>Details</h6>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                    <p></p>
-                    <ul>
-                        <li>73.6% Cotton</li>
-                        <li>24.5% Polyester</li>
-                        <li>1.9% Elastane</li>
-                    </ul>
-                    <p></p>
-                    <p>The model is 1.90m and is wearing size 32 (Waist: 71cm, Hips: 97cm)</p>
-                    <p></p>
-                    <h6>Care instructions</h6>
-                    <ul>
-                        <li>Tumble drying low temperature</li>
-                        <li>Professional drycleaning in tetrachlorethene</li>
-                        <li>Iron max 110°C</li>
-                        <li>Normal wash 40°C</li>
-                        <li>Do not bleach</li>
-                    </ul>
-                    <p></p>
                 </div>
                 <div class="ui bottom attached tab segment " data-tab="second">
                     <div class="ui divided selection list">
