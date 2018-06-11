@@ -65,7 +65,8 @@
                                 </a>
                             </form>
 
-                            <form method="POST" action="{{route('products.delete')}}" class="inline-forms">
+                            <form method="POST" action="{{route('products.destroy', $product->id)}}" class="inline-forms">
+                                @method('DELETE')
                                 {{csrf_field()}}
                                 <button class="mini ui button red" type="submit"  onclick="return confirm('Delete product?')">
                                     <i class="trash icon"></i>

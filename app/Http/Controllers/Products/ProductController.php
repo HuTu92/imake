@@ -62,8 +62,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //TODO products list select form db :PASH
-	    return view( 'products.products' );
+        //TODO change list
+        $products = Product::orderBy('created_at', 'desc')->paginate(1);
+        return view( 'products.list', ['products' => $products] );
     }
 
     /**
@@ -275,7 +276,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dump ($id);
+        $user = Auth::user();
+        $product = Product::find($id);
+        if($user->cannot("update", $product)){
+            return redirect()->route("products.my");
+        }
+        Cart::where('product_id', $id)->delete();
+        $product->delete();
+        return redirect()->route("products.my")->with('message' , $product->name." deleted");
     }
 
 
@@ -289,19 +298,6 @@ class ProductController extends Controller
             $product->disable = $request->get('product_status');
             $product->save();
             return redirect()->route("products.my")->with('message' , $product->name." updated");
-    }
-
-    public function productDelete(Request $request)
-    {
-            //TODO move to destroy method: PASH
-            $user = Auth::user();
-            $product = Product::find($request->get('product_delete'));
-            if($user->cannot("update", $product)){
-                return redirect()->route("products.my");
-            }
-            Cart::where('product_id', $request->get('product_delete'))->delete();
-            $product->delete();
-            return redirect()->route("products.my")->with('message' , $product->name." deleted");
     }
 
 

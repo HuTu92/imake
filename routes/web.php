@@ -104,12 +104,6 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
         'uses' => 'Products\ProductController@productDisable'
 	]);
 
-	Route::post("/products/delete/", [
-		"as" => "products.delete",
-		'middleware' => ['auth', 'auth.vendor'],
-        'uses' => 'Products\ProductController@productDelete',
-	]);
-
 
 	Route::resource("/products", "Products\ProductController" );
 

@@ -71,6 +71,7 @@ class CartController extends Controller
 
 
 
+
 		if(!$old_count) {
 			$cart = new Cart();
 

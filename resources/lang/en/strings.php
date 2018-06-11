@@ -12,7 +12,7 @@ return [
 	"access-denied" => "You do not have rights to the current action!",
 	"product-added-to-cart" => "Product added to cart",
 	"stock-error" => "Currently in stock there is no such quantity of this product",
-	"disable-error" => "Currently in stock is unattainable",
+	"disable-error" => "Product is unattainable",
     "fileuploader-list-images" => "At least one image is required.",
     "product-deleted-from-cart" => "Product has been deleted from cart",
 ];
