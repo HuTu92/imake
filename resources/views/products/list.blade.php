@@ -130,9 +130,7 @@
                                         @endforeach
                                     </div>
                                     <div class="description">
-                                        @if($product->created_at > \Carbon\Carbon::today())
-                                        <div class="ui top right attached label blue">NEW</div>
-                                        @endif
+
                                         {{$product->currency}} {{ $product->regular_price }}  @if($product->sale_price) -  {{$product->currency}} {{ $product->sale_price }} @endif
                                     </div>
                                 </div>
