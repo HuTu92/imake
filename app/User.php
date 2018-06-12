@@ -64,4 +64,8 @@ class User extends Authenticatable
     public static function currentUser(){
     	return Auth::user();
     }
+
+    public function comments(){
+        return $this->hasMany("imake\Comment", "user_id", "id");
+    }
 }

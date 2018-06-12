@@ -147,7 +147,15 @@
                     <a class="item active" data-tab="first"><i class="icon browser"></i> <span>Description</span></a>
                     <a class="item" data-tab="second"><i class="icon tags"></i> <span>Specification</span></a>
                     {{--TODO comments tabs: PASH --}}
-                    <a class="item" data-tab="third"><i class="icon comments outline"></i> <span>Comments (5)</span></a>
+                    <a class="item" data-tab="third"><i class="icon comments outline"></i> <span>
+                            @php $count = $product->comments->count() @endphp
+                            {{ $count }}
+                            @if($count > 1)
+                                Comments
+                            @else
+                                Comment
+                            @endif
+                             </span></a>
                 </div>
                 <div class="ui bottom attached tab segment active" data-tab="first">
 
@@ -176,79 +184,45 @@
                 </div>
                 <div class="ui bottom attached tab segment" data-tab="third">
                     <div class="ui small comments">
+                    @foreach($product->comments as $comment)
                         <div class="comment">
                             <a class="avatar">
-                                <img src="{{ asset('images/demo/elliot.jpg') }}">
+                                <img src="{{ $comment->user->getAvatar() }}">
                             </a>
                             <div class="content">
-                                <a class="author">Matt</a>
-                                <div class="ui mini star rating" data-rating="5"></div>
+                                <a class="author">{{ $comment->user->name }}</a>
+                                {{--<div class="ui mini star rating" data-rating="4"></div>--}}
                                 <div class="metadata">
-                                    <span class="date">Today at 5:42PM</span>
+                                    <span class="date">{{ $comment->created_at }}</span>
                                 </div>
                                 <div class="text">
-                                    How artistic!
+                                    {!! $comment->comment !!}
                                 </div>
-                                <div class="actions">
+                                {{--<div class="actions">
                                     <a class="reply">Reply</a>
-                                </div>
+                                </div>--}}
                             </div>
                         </div>
-                        <div class="comment">
-                            <a class="avatar">
-                                <img src="{{ asset('images/demo/matt.jpg') }}">
-                            </a>
-                            <div class="content">
-
-                                <a class="author">Elliot Fu</a>
-                                <div class="ui mini star rating" data-rating="4"></div>
-                                <div class="metadata">
-                                    <span class="date">Yesterday at 12:30AM</span>
-                                </div>
-
-                                <div class="text">
-                                    <p>This has been very useful for my research. Thanks as well!</p>
-                                </div>
-                                <div class="actions">
-                                    <a class="reply">Reply</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment">
-                            <a class="avatar">
-                                <img src="{{ asset('images/demo/elliot.jpg') }}">
-                            </a>
-                            <div class="content">
-                                <a class="author">Joe Henderson</a>
-                                <div class="ui mini star rating" data-rating="4"></div>
-                                <div class="metadata">
-                                    <span class="date">5 days ago</span>
-                                </div>
-                                <div class="text">
-                                    Dude, this is awesome. Thanks so much
-                                </div>
-                                <div class="actions">
-                                    <a class="reply">Reply</a>
-                                </div>
-                            </div>
-                        </div>
+                    @endforeach
                     </div>
-                    <form class="ui reply form">
-                        <div class="ui massive star rating"></div>
-                        <div class="field">
-                            <textarea></textarea>
-                        </div>
-                        <div class="ui fluid icon input">
-                            <input placeholder="Name" type="text">
-                            <i class="user icon"></i>
-                        </div>
-                        <div class="divider"></div>
-                        <div class="ui blue labeled submit icon button">
-                            <i class="icon edit"></i> Add Reply
-                        </div>
-                    </form>
-
-                </div>
+                    @if(Auth::user())
+                        <form class="ui reply form">
+                            {{--<div class="ui massive star rating"></div>--}}
+                            <div class="field">
+                                <textarea></textarea>
+                            </div>
+                            {{--<div class="ui fluid icon input">
+                                <input placeholder="Name" type="text">
+                                <i class="user icon"></i>
+                            </div>--}}
+                            <div class="divider"></div>
+                            <div class="ui blue labeled submit icon button">
+                                <i class="icon edit"></i> Add comment
+                                {{--<i class="icon edit"></i> Add Reply--}}
+                            </div>
+                        </form>
+                    @endif
+                    </div>
             </div>
             <div class="column sidebar">
                 <h3 class="ui top attached header">

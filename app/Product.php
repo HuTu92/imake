@@ -68,6 +68,14 @@ class Product extends Model
 	}
 
 
+    public function comments(){
+        return $this->hasMany("imake\Comment", "product_id", "id");
+    }
+
+
+
+
+
 
 
 
