@@ -49,11 +49,11 @@
                             {{$product->name}}
                             <div class="sub header">{{$product->user->name}} {{$product->user->last_name}}</div>
                         </h2>
-                        <p class="ui blue header">$150 - $260</p>
+                        <p class="ui blue header">{{$product->currency}} {{ $product->regular_price }}  @if($product->sale_price) -  {{$product->currency}} {{ $product->sale_price }} @endif</p>
                         <div class="ui star rating" data-rating="3"></div>
-                        <div class="content">
+                        {{--<div class="content">
                             {{$product->description}}
-                        </div>
+                        </div>--}}
                             @if(empty($unattainable))
                                 <form method="post" action="{{ route("cart.update") }}">
                                     {{ csrf_field() }}
@@ -177,8 +177,17 @@
                             N/A
                         </a>
                         <a class="item">
-                            <b>Tags: </b>
-                            Decoration, Exclusive, Office
+                            <b>Weight: </b>
+                            {{ $product->weight or "N/A"}}
+                        </a><a class="item">
+                            <b>Length: </b>
+                            {{ $product->lenght or "N/A"}}
+                        </a><a class="item">
+                            <b>Width: </b>
+                            {{ $product->width or "N/A"}}
+                        </a><a class="item">
+                            <b>Height: </b>
+                            {{ $product->height or "N/A"}}
                         </a>
                     </div>
                 </div>
@@ -206,20 +215,17 @@
                     @endforeach
                     </div>
                     @if(Auth::user())
-                        <form class="ui reply form">
-                            {{--<div class="ui massive star rating"></div>--}}
+
+                        <form class="ui reply form" method="post" action="{{ route('product.comment') }}">
+                            {{ csrf_field() }}
+                            <input type="hidden" name='product_id' value="{{ $product->id }}">
                             <div class="field">
-                                <textarea></textarea>
+                                <input type="text" name='product_comment' required>
                             </div>
-                            {{--<div class="ui fluid icon input">
-                                <input placeholder="Name" type="text">
-                                <i class="user icon"></i>
-                            </div>--}}
                             <div class="divider"></div>
-                            <div class="ui blue labeled submit icon button">
+                            <button class="ui blue labeled submit icon button" onclick="return confirm('Add Comment?')">
                                 <i class="icon edit"></i> Add comment
-                                {{--<i class="icon edit"></i> Add Reply--}}
-                            </div>
+                            </button>
                         </form>
                     @endif
                     </div>

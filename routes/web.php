@@ -105,7 +105,17 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 	]);
 
 
+
+
 	Route::resource("/products", "Products\ProductController" );
+
+    Route::post("/product/comment/", [
+        "as" => "product.comment",
+        'middleware' => ['auth', 'auth.vendor'],
+        'uses' => 'CommentController@addComment'
+    ]);
+
+
 
 
 	/**
