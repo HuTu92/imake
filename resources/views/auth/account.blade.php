@@ -8,7 +8,6 @@
             $('input[name="avatar"]').fileuploader({
                 limit: 1,
                 extensions: ['jpg', 'jpeg', 'png', 'gif'],
-                // by default - false,
                 files:[{
                     name: 'Avatar',
                     size: 1024,
@@ -90,7 +89,7 @@
                     <div class="field {{ $errors->has('avatar') ? 'error' : '' }}">
                         <label>file</label>
                         <div class="ui left icon input">
-                            <input placeholder="Email" type="file" value="" name="avatar" >
+                            <input placeholder="logo" type="file" value="" name="avatar" >
                         </div>
                     </div>
 

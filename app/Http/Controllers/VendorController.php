@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use imake\Image;
 use imake\Vendor;
 use Countries;
 use Lang;
@@ -21,6 +22,7 @@ class VendorController extends Controller
 			'shop_name' => 'required|string|max:255',
 			'shop_description' => 'required|string',
 			'shop_country' => 'required|country',
+            'logo' => 'image',
 
 		]);
 	}
@@ -33,6 +35,22 @@ class VendorController extends Controller
 		$user->load("vendor");
 
 		if(!$validator->fails()) {
+
+
+            $user->vendor->image_id = null;
+
+            if(!empty(json_decode($request->{"fileuploader-list-logo"}))){
+                if($request->hasFile("logo")){
+                    $image = Image::create( $request->file("logo"), [500,500] );
+                    $image->save();
+                    $user->vendor->image_id = $image->id;
+                }else{
+                    $image = Image::where("file", json_decode($request->{"fileuploader-list-logo"})[0]->file)->first();
+                    if($image){
+                        $user->vendor->image_id = $image->id;
+                    }
+                }
+            }
 
 			$user->vendor->shop_name         = $request->get( 'shop_name' );
 			$user->vendor->shop_description  = $request->get( 'shop_description' );

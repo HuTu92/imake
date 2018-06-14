@@ -111,8 +111,8 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 
     Route::post("/product/comment/", [
         "as" => "product.comment",
-        'middleware' => ['auth', 'auth.vendor'],
-        'uses' => 'CommentController@addComment'
+        'middleware' => ['auth'],
+        'uses' => 'CommentController@store'
     ]);
 
 
@@ -139,13 +139,6 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 	/*
 	 * Ajax Requests
 	 */
-
-	Route::get('/product-form-variation-fields',function (){
-	    if(empty($_GET["product_images"])){
-            $_GET["product_images"] = null;
-        }
-	    return view("inc.product-form-variation-fields",  ["variation_number" => $_GET["variation_number"], "product_images" => $_GET["product_images"]] );
-    });
 
     Route::post( '/images/store', [
         'as' => 'images.store',

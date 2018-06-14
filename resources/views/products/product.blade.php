@@ -146,7 +146,6 @@
                 <div class="ui top attached tabular tabs menu">
                     <a class="item active" data-tab="first"><i class="icon browser"></i> <span>Description</span></a>
                     <a class="item" data-tab="second"><i class="icon tags"></i> <span>Specification</span></a>
-                    {{--TODO comments tabs: PASH --}}
                     <a class="item" data-tab="third"><i class="icon comments outline"></i> <span>
                             @php $count = $product->comments->count() @endphp
                             {{ $count }}
@@ -220,11 +219,11 @@
                             {{ csrf_field() }}
                             <input type="hidden" name='product_id' value="{{ $product->id }}">
                             <div class="field">
-                                <input type="text" name='product_comment' required>
+                                <textarea name='comment' required></textarea>
                             </div>
                             <div class="divider"></div>
-                            <button class="ui blue labeled submit icon button" onclick="return confirm('Add Comment?')">
-                                <i class="icon edit"></i> Add comment
+                            <button class="ui blue labeled submit icon button">
+                                <i class="icon comment"></i> Add comment
                             </button>
                         </form>
                     @endif

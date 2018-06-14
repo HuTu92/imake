@@ -8,7 +8,7 @@
                 <div class="ui mini breadcrumb">
                     <a class="section">Home</a>
                     <i class="right chevron icon divider"></i>
-                    <a class="section">Account</a>
+                    <a class="section">My Products</a>
                 </div>
             </div>
         </div>

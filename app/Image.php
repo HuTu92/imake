@@ -42,6 +42,10 @@ class Image extends Model
 		return $this->belongsTo("imake\User", "id", "image_id");
 	}
 
+	public function vemdor(){
+		return $this->belongsTo("imake\Vendor", "id", "image_id");
+	}
+
 
 
 	// CUSTOM

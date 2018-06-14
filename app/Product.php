@@ -57,7 +57,12 @@ class Product extends Model
 		return $this->regular_price;
 	}
 
-	/**
+    public function comments(){
+        return $this->hasMany("imake\Comment", "product_id", "id");
+    }
+
+
+    /**
 	 * cyustom
 	 */
 
@@ -68,9 +73,6 @@ class Product extends Model
 	}
 
 
-    public function comments(){
-        return $this->hasMany("imake\Comment", "product_id", "id");
-    }
 
 
 

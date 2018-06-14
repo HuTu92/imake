@@ -15,14 +15,21 @@ class CommentController extends Controller
         $this->middleware(['auth']);
     }
 
-    public function addComment(Request $request){
 
+    protected function validator(array $data)
+    {
         $rules = [
             'product_id' => 'required|integer',
-            'product_comment' => 'required',
+            'comment' => 'required',
         ];
 
-        $validator = Validator::make($request->all(), $rules);
+        return Validator::make($data, $rules);
+    }
+
+
+    public function store(Request $request){
+
+        $validator = $this->validator($request->all());
 
         if($validator->fails()){
             return redirect()->back()->withErrors(["error" =>  __('strings.comment_except')])->withInput($request->input());
@@ -31,7 +38,7 @@ class CommentController extends Controller
 
         if(Product::find($request->get("product_id"))){
             $comment = Comment::create([
-                'comment' => $request->get("product_comment"),
+                'comment' => $request->get("comment"),
                 'product_id' => $request->get("product_id"),
                 'user_id' => Auth::user()->id,
             ]);

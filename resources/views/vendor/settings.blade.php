@@ -1,5 +1,31 @@
 @extends('layouts.layout')
 @section('content')
+    <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.fileuploader.css')}}">
+    <script src="{{asset('js/jquery.fileuploader.min.js')}}"></script>
+    <script src="{{asset('js/tinymce/tinymce.min.js')}}"></script>
+    <script>
+        <?php $images = json_decode(old("fileuploader-list-images"));?>
+        tinymce.init({
+            selector: 'textarea'
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('input[name="logo"]').fileuploader({
+                limit: 1,
+                extensions: ['jpg', 'jpeg', 'png', 'gif'],
+                // by default - false,
+                files:[{
+                    name: 'Avatar',
+                    size: 1024,
+                    type: 'image/jpg',
+                    file: '<?php echo  $user->vendor->getLogo();?>'
+                }]
+            });
+
+        })
+    </script>
+
     <div class="ui container">
         <div class="ui grid">
             <div class="column">
@@ -38,11 +64,12 @@
 
                 <div class="ui top attached tabular menu tabs">
                     <a class="active item" data-tab="general"><i class="setting icon"></i> General</a>
+                    <a class="item" data-tab="delivery"><i class="truck icon"></i> Delivery</a>
                     <a class="item" data-tab="payments"><i class="payment icon"></i> Payments</a>
                     <a class="item" data-tab="style"><i class="paint brush icon"></i> Shop style</a>
                 </div>
                 <div class="ui bottom attached active tab segment" data-tab="general">
-                    <form class="ui form error" method="POST" action="{{ route('shop.settings') }}">
+                    <form class="ui form error"  enctype="multipart/form-data" method="POST" action="{{ route('shop.settings') }}">
                         {{ csrf_field() }}
                         <div class="field {{ $errors->has('shop_name') ? 'error' : '' }}">
                             <label>Shop name</label>
@@ -54,7 +81,7 @@
                         <div class="field {{ $errors->has('shop_description') ? 'error' : '' }}">
                             <label>Shop description</label>
                             <div class="ui left icon input">
-                                <textarea placeholder="Shop description" name="shop_description" required>{{ $user->vendor->shop_description }}</textarea>
+                                <textarea placeholder="Shop description" name="shop_description" >{{ $user->vendor->shop_description }}</textarea>
                             </div>
                         </div>
                         <div class="field {{ $errors->has('shop_country') ? 'error' : '' }}">
@@ -72,8 +99,39 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="field {{ $errors->has('avatar') ? 'error' : '' }}">
+                            <label>Shop logo</label>
+                            <div class="ui left icon input">
+                                <input placeholder="logo" type="file" value="" name="logo" >
+                            </div>
+                        </div>
+
                         <button class="ui button primary" type="submit"><i class="save icon"></i> Save shop settings</button>
                     </form>
+                </div>
+                <div class="ui bottom attached tab segment" data-tab="delivery">
+                    <form class="ui form" method="post" action="javascript:void(0);">
+
+                        <div class="field {{ $errors->has('shop_country') ? 'error' : '' }}">
+                            <label>Delivery Countries</label>
+                            <div class="ui left icon input">
+                                <div class="ui fluid search selection dropdown multiple">
+                                    <input name="shop_country" type="hidden" value="{{ $user->vendor->shop_country }}">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Select Country</div>
+                                    <div class="menu">
+                                        @foreach($countries as $country)
+                                            <div class="item" data-value="{{$country->name->common}}"><i class="{{ strtolower($country["cca2"]) }} flag"></i>{{$country->name->common}}</div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <button class="ui button primary" type="submit"><i class="save icon"></i> Save payment settings</button>
+                    </form>
+
                 </div>
                 <div class="ui bottom attached tab segment" data-tab="payments">
                     <form class="ui form" method="post" action="javascript:void(0);">

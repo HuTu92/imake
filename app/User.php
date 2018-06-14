@@ -50,6 +50,11 @@ class User extends Authenticatable
     	return $this->hasMany("imake\Cart", "user_id", "id");
     }
 
+    public function comments(){
+        return $this->hasMany("imake\Comment", "user_id", "id");
+    }
+
+
 
     public function getAvatar(User $user = null){
     	if(!$user){
@@ -65,7 +70,4 @@ class User extends Authenticatable
     	return Auth::user();
     }
 
-    public function comments(){
-        return $this->hasMany("imake\Comment", "user_id", "id");
-    }
 }

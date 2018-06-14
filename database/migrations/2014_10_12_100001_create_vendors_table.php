@@ -20,7 +20,9 @@ class CreateVendorsTable extends Migration
 		    $table->string('shop_name')->nullable();
 		    $table->string('shop_description')->nullable();
 		    $table->string('shop_country', 250)->nullable();
-		    $table->timestamps();
+            $table->integer("image_id")->unsigned()->nullable();
+            $table->foreign("image_id")->references("id")->on("images");
+            $table->timestamps();
 		    $table->softDeletes();
 	    });
     }

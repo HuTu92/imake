@@ -62,7 +62,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //TODO change list
+        //TODO pagination products count 
         $products = Product::orderBy('created_at', 'desc')->paginate(1);
         return view( 'products.list', ['products' => $products] );
     }
