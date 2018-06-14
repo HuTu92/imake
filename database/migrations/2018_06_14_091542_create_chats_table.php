@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdersTable extends Migration
+class CreateChatsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('chats', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer("user_id")->unsigned();
@@ -25,8 +25,8 @@ class CreateOrdersTable extends Migration
             $table->integer("product_id")->unsigned();
             $table->foreign("product_id")->references("id")->on("products");
 
-            $table->integer("count")->unsigned();
-            $table->double("amount")->unsigned()->nullable();
+            $table->integer("order_id")->unsigned()->nullable();
+            $table->foreign("order_id")->references("id")->on("orders");
 
             $table->timestamps();
         });
@@ -39,6 +39,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('chats');
     }
 }
