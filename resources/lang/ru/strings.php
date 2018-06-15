@@ -7,5 +7,5 @@ return [
 	"Sign In"       => "Регистрация",
 	"Account"       => "Аккаунт",
 	"Logout"        => "Выход",
-	"account-success-updated" => "Ваш аккавунт успешно обнавлен!"
+	"account-success-updated" => "Ваш аккаунт успешно обнавлен!"
 ];

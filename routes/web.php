@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use imake\Cart;
 
+Route::get('test',['uses'=>'TestController@test']);
+
 Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 
 	Route::get( '/', [

@@ -41,9 +41,6 @@ class Product extends Model
 		return $this->belongsToMany("imake\Image", "product_image" );
 	}
 
-	public function orders(){
-		return $this->belongsToMany("imake\Product", "order_product");
-	}
 
 	public function getStock(){
 	    return $this->stock;
@@ -74,7 +71,9 @@ class Product extends Model
 
 
 
-
+    public function chats(){
+        return $this->hasMany("imake\Chat", "product_id", "id");
+    }
 
 
 

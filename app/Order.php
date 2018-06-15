@@ -7,14 +7,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-	use SoftDeletes;
-	protected $table  = 'orders';
 
-	public function products(){
-		return $this->belongsToMany("imake\Product", "order_product");
-	}
+    protected $table  = 'orders';
+    protected $primaryKey = 'id';
+
 
 	public function user(){
 		return $this->belongsTo("imake\User", "user_id", "id");
 	}
+
+    public function vendor(){
+        return $this->belongsTo("imake\Vendor", "vendor_id", "id");
+    }
+
+	public function product(){
+		return $this->belongsTo("imake\Product", "product_id", "id");
+	}
+
+
 }
