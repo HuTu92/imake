@@ -571,15 +571,15 @@
                                         </div>
                                         <div class="description">
                                             <div class="ui top right attached label blue">NEW</div>
-                                            {{$new->currency}} {{ $new->regular_price }}  @if($new->sale_price) -  {{$new->currency}} {{ $new->sale_price }} @endif
+                                            @if($new->sale_price) <strike>${{$new->regular_price}}</strike> @endif  ${{ $new->real_price }}
                                         </div>
                                     </div>
                                     <div class="extra content">
                                     <span class="right floated">
-                                    Joined in 2014
+                                    {{$new->updated_at}}
                                     </span>
                                         <div class="right floated meta">14h</div>
-                                        <img class="ui avatar image" src="{{ asset('images/demo/elliot.jpg') }}"> Elliot
+                                        <img class="ui avatar image" src="{{ $new->vendor->getLogo() }}"> {{$new->vendor->shop_name}}
                                     </div>
                                 </div>
                             </div>

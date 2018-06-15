@@ -74,14 +74,14 @@
                         <div class="field {{ $errors->has('shop_name') ? 'error' : '' }}">
                             <label>Shop name</label>
                             <div class="ui left icon input">
-                                <input placeholder="Shop name" type="text" name="shop_name" value="{{ $user->vendor->shop_name }}" required>
+                                <input placeholder="Shop name" type="text" name="shop_name" value="{{ old("shop_name") ?: $user->vendor->shop_name }}" required>
                                 <i class="shopping bag icon"></i>
                             </div>
                         </div>
                         <div class="field {{ $errors->has('shop_description') ? 'error' : '' }}">
                             <label>Shop description</label>
                             <div class="ui left icon input">
-                                <textarea placeholder="Shop description" name="shop_description" >{{ $user->vendor->shop_description }}</textarea>
+                                <textarea placeholder="Shop description" name="shop_description" >{{ old("shop_description") ?: $user->vendor->shop_description }}</textarea>
                             </div>
                         </div>
                         <div class="field {{ $errors->has('shop_country') ? 'error' : '' }}">

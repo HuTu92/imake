@@ -47,7 +47,7 @@
 
                         <h2 class="ui header">
                             {{$product->name}}
-                            <div class="sub header">{{$product->user->name}} {{$product->user->last_name}}</div>
+                            <div class="sub header">{{$product->vendor->shop_name }}</div>
                         </h2>
                         <p class="ui blue header">{{$product->currency}} {{ $product->regular_price }}  @if($product->sale_price) -  {{$product->currency}} {{ $product->sale_price }} @endif</p>
                         <div class="ui star rating" data-rating="3"></div>
