@@ -62,22 +62,8 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 		}
 	] );
 
-	Route::get( '/account/shop/settings', [
-		'as' => 'shop.settings',
-		'middleware' => ['auth', 'auth.vendor'],
-		function () {
-			$user = Auth::user();
-			return view( 'vendor.settings', ['countries' => Countries::all()] );
-		}
-	] );
 
-	//update vendor data post request
-	/*Route::post( '/account/shop/settings', [
-		'middleware' => ['auth', 'auth.vendor'],
-		'uses' => 'VendorController@update'
-	]);*/
 
-    Route::resource("/vendors", "Vendors\VendorController" );
 
 	Route::get( '/logout', [
 		'as' => 'logout',
@@ -110,6 +96,8 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 
 
 
+
+    Route::resource("/vendors", "Vendors\VendorController" );
 
 	Route::resource("/products", "Products\ProductController" );
 
