@@ -262,17 +262,17 @@ div.cart-icon i{
         width: 95%;
     }
 }
-body.products\.index .ui.cards > .card{
+body.products\.index .ui.cards > .card, body.vendors\.show .ui.cards > .card{
     width: 270px;
 }
 @media screen and (max-width: 1200px) {
-    body.products\.index .ui.cards > .card{
+    body.products\.index .ui.cards > .card, body.vendors\.show .ui.cards > .card{
         width: calc(50% - 1rem);
 
     }
 }
 @media screen and (max-width: 420px) {
-    body.products\.index .ui.cards > .card{
+    body.products\.index .ui.cards > .card, body.vendors\.show .ui.cards > .card{
         width: calc(100% - 1rem);
 
     }

@@ -545,44 +545,11 @@
                     </h4>
 
                     <div  id="carousel-news" class="owl-carousel owl-theme">
-                        @foreach($news as $new)
-                            <div  class="ui cards">
-                                <div class="card product">
-                                    <div class="image attachment">
-                                        <img class="product-image" src="{{ $new->images[0]->thumbs["400_400"] or null}} " alt="{{$new->name}}">
-                                        <div class="mini-icons">
-                                            <img class="ui image mini" src="{{ $new->user->getAvatar() }}">
-                                            <div class="add-bookmark popup right-center" data-content="Add to bookmark" data-variation="inverted"><i class="icon heart"></i></div>
-                                            <div class="add-bookmark popup right-center" data-content="Compare" data-variation="inverted"><i class="sort content ascending icon"></i></div>
-                                        </div>
-
-                                        <div class="mini-attachments">
-                                            @foreach($new->images->slice(0, 5) as $image)
-                                                <img src="{{ $image->thumbs["400_400"] }}" class="ui mini image" alt="{{$new->name}}">
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    <div class="content">
-                                        <a href="{{ route("products.show", $new->id) }}" class="header">{{$new->name}}</a>
-                                        <div class="meta">
-                                            @foreach($new->categories->slice(0, 5) as $category)
-                                                <a>{{ $category->category_name }}</a>
-                                            @endforeach
-                                        </div>
-                                        <div class="description">
-                                            <div class="ui top right attached label blue">NEW</div>
-                                            @if($new->sale_price) <strike>${{$new->regular_price}}</strike> @endif  ${{ $new->real_price }}
-                                        </div>
-                                    </div>
-                                    <div class="extra content">
-                                    <span class="right floated">
-                                    {{$new->updated_at}}
-                                    </span>
-                                        <img class="ui avatar image" src="{{ $new->vendor->getLogo() }}"> {{$new->vendor->shop_name}}
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
+                        <div  class="ui cards">
+                            @foreach($news as $product)
+                                @include("inc.products-list", ["product" => $product])
+                            @endforeach
+                        </div>
                     </div>
                 </div>
                 @endif

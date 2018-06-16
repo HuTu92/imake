@@ -47,7 +47,7 @@
 
                         <h2 class="ui header">
                             {{$product->name}}
-                            <div class="sub header">{{$product->vendor->shop_name }}</div>
+                            <div class="sub header"><a href="{{route("vendors.show", $product->vendor->id)}}">{{$product->vendor->shop_name }}</a></div>
                         </h2>
                         <p class="ui blue header">$ {{ $product->getRealPriceAttribute() }}</p>
                         <div class="ui star rating" data-rating="3"></div>

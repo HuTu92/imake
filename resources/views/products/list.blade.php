@@ -103,17 +103,12 @@
                 </div>
             @show
             <div class="page-conent column">
-
-                @include('inc.products-list',['products'=>$products])
-
-                <div class="ui divider"></div>
-                    {{$products->links()}}
-                {{--<div class="ui  basic buttons right floated">
-                    <button class="ui button">1</button>
-                    <button class="ui button">2</button>
-                    <button class="ui button">3</button>
-                </div>--}}
-
+                <div  class="ui cards">
+                    @foreach($products as $product)
+                        @include("inc.products-list", ["product" => $product])
+                    @endforeach
+                </div>
+                {{$products->links()}}
             </div>
         </div>
     </div>

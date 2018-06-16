@@ -15,24 +15,7 @@
         </div>
         <div class="ui stackable grid">
             <div class="page-conent column">
-                @if ($errors->all())
-                    <div class="ui error message">
-                        <ul class="list">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if (session()->has('message'))
-                    <div class="ui info message">
-                        <ul class="list">
-                            <li>{{ session()->get('message') }}</li>
-                        </ul>
-                    </div>
-                @endif
                 <div class="ui stackable grid product-info-first">
-
                     <div class="eight wide column">
                         <div class="ui items">
                             <div class="item">
@@ -56,9 +39,13 @@
                         </div>
                     </div>
                 </div>
+                <div  class="ui cards">
+                    @foreach($vendor->products as $product)
+                        @include("inc.products-list", ["product" => $product])
+                    @endforeach
 
-                    @include('inc.products-list',['products'=>$vendor->products])
-
+                    {{--TODO products pagination :PASH--}}
+                </div>
             </div>
 
             <div class="column sidebar">
