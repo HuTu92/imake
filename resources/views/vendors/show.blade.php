@@ -54,10 +54,13 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
+
+                    @include('inc.products-list',['products'=>$vendor->products])
+
             </div>
+
             <div class="column sidebar">
                 <h3 class="ui top attached header">
                     Specials

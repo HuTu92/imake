@@ -31,6 +31,7 @@ class TestController extends Controller
         //nmanatip karelia filtrel collectian
         dump($product->chats->where('user_id',2));
 
+
     }
 
 

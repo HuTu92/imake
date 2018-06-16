@@ -103,38 +103,9 @@
                 </div>
             @show
             <div class="page-conent column">
-                <div class="products">
-                    <div  class="ui cards">
-                        @foreach($products as $product)
-                            <div class="card product">
-                                <div class="image attachment">
-                                    <img class="product-image" src="{{  \imake\Image::getThumb($product->getGeneralImage(), [400,400]) }}">
-                                    <div class="mini-icons">
-                                        <img class="ui image mini" src="{{ $product->user->getAvatar() }}">
-                                        <div class="add-bookmark popup right-center" data-content="Add to bookmark" data-variation="inverted"><i class="icon heart"></i></div>
-                                        <div class="add-bookmark popup right-center" data-content="Compare" data-variation="inverted"><i class="sort content ascending icon"></i></div>
-                                    </div>
-                                    <div class="mini-attachments">
-                                        @foreach($product->images->slice(0, 5) as $product_image)
-                                            <img src="{{ $product_image->thumbs["400_400"] }}" class="ui mini image">
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="content">
-                                    <a href="/products/{{$product->id}}" class="header">{{$product->name}}</a>
-                                    <div class="meta">
-                                        @foreach($product->categories->slice(0, 5) as $category)
-                                            <a>{{ $category->category_name }}</a>
-                                        @endforeach
-                                    </div>
-                                    <div class="description">
-                                        {{$product->currency}} {{ $product->regular_price }}  @if($product->sale_price) -  {{$product->currency}} {{ $product->sale_price }} @endif
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+
+                @include('inc.products-list',['products'=>$products])
+
                 <div class="ui divider"></div>
                     {{$products->links()}}
                 {{--<div class="ui  basic buttons right floated">
