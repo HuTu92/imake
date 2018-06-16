@@ -69,7 +69,8 @@
                     <a class="item" data-tab="style"><i class="paint brush icon"></i> Shop style</a>
                 </div>
                 <div class="ui bottom attached active tab segment" data-tab="general">
-                    <form class="ui form error"  enctype="multipart/form-data" method="POST" action="{{ route('shop.settings') }}">
+                    <form class="ui form error"  enctype="multipart/form-data" method="POST" action="{{ route('vendors.update', $id) }}">
+                        @method('PUT')
                         {{ csrf_field() }}
                         <div class="field {{ $errors->has('shop_name') ? 'error' : '' }}">
                             <label>Shop name</label>

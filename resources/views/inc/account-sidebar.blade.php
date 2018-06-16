@@ -11,7 +11,7 @@
             Vendor
             <div class="menu">
                 <a class="item"><i class="dashboard icon"></i> Dashboard </a>
-                <a class="@if($active == 'shop.settings') active @endif item" href="{{route('shop.settings')}}"><i class="options icon"></i> Shop settings </a>
+                <a class="@if($active == 'shop.settings') active @endif item" href="{{route('vendors.edit', $user->vendor->id)}}"><i class="options icon"></i> Shop settings </a>
                 <a class="item"><i class="bar chart icon"></i> Statistic</a>
                 <a class="item"><i class="payment icon"></i> Sells</a>
             </div>
