@@ -72,10 +72,12 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 	] );
 
 	//update vendor data post request
-	Route::post( '/account/shop/settings', [
+	/*Route::post( '/account/shop/settings', [
 		'middleware' => ['auth', 'auth.vendor'],
 		'uses' => 'VendorController@update'
-	]);
+	]);*/
+
+    Route::resource("/vendors", "Vendors\VendorController" );
 
 	Route::get( '/logout', [
 		'as' => 'logout',

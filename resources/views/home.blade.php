@@ -578,7 +578,6 @@
                                     <span class="right floated">
                                     {{$new->updated_at}}
                                     </span>
-                                        <div class="right floated meta">14h</div>
                                         <img class="ui avatar image" src="{{ $new->vendor->getLogo() }}"> {{$new->vendor->shop_name}}
                                     </div>
                                 </div>
