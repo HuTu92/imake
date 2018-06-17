@@ -4,6 +4,7 @@ namespace imake\Http\Controllers;
 
 use Illuminate\Http\Request;
 use imake\Chat;
+use imake\Image;
 use imake\Message;
 use imake\Order;
 use imake\Product;
@@ -12,7 +13,9 @@ class TestController extends Controller
 {
     public function test(){
 
-        $chat = Chat::find(1);
+        dump( Image::create(public_path("images/demo/sample_product.jpg")));
+
+       /* $chat = Chat::find(1);
         dump($chat);
         dump($chat->user);
         dump($chat->vendor);
@@ -30,7 +33,7 @@ class TestController extends Controller
         dump($product->chats);
         //nmanatip karelia filtrel collectian
         dump($product->chats->where('user_id',2));
-
+*/
 
     }
 

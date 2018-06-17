@@ -4,6 +4,8 @@ namespace imake\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use imake\Chat;
+use imake\Policies\ChatPolicy;
 use imake\Policies\ProductPolicy;
 use imake\Product;
 use imake\Cart;
@@ -19,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         //'imake\Model' => 'imake\Policies\ModelPolicy',
         Product::class => ProductPolicy::class,
+        Chat::class => ChatPolicy::class,
         Cart::class => CartPolicy::class
     ];
 

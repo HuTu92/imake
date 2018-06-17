@@ -101,6 +101,11 @@ Route::group([ 'prefix' => LaravelLocalization::setLocale()], function() {
 
 	Route::resource("/products", "Products\ProductController" );
 
+	Route::resource("/messages", "Messages\MessageController" );
+
+	Route::resource("/chats", "Chats\ChatController" );
+
+
     Route::post("/product/comment/", [
         "as" => "product.comment",
         'middleware' => ['auth'],
