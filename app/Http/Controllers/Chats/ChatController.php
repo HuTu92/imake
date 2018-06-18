@@ -20,14 +20,9 @@ class ChatController extends Controller
      */
     public function index()
     {
+        //TODO pagination chat count
         $user = Auth::user();
-
-        $chats = $user->chats;
-
-        if($user->is_vendor){
-            $chats = $chats->merge($user->vendor->chats);
-        }
-
+        $chats = Chat::where("user_id",$user->id)->orwhere("vendor_id",$user->id)->orderBy('created_at', 'desc')->paginate(1);
         return view("chats.index", ["chats" => $chats]);
     }
 

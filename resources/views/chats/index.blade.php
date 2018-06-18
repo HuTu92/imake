@@ -54,6 +54,7 @@
                         @endforeach
                     </div>
                 </div>
+                {{ $chats->links() }}
 
             </div>
 
