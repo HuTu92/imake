@@ -20,7 +20,15 @@ class ChatController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+
+        $chats = $user->chats;
+
+        if($user->is_vendor){
+            $chats = $chats->merge($user->vendor->chats);
+        }
+
+        return view("chats.index", ["chats" => $chats]);
     }
 
     /**

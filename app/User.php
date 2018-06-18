@@ -54,6 +54,10 @@ class User extends Authenticatable
         return $this->hasMany("imake\Comment", "user_id", "id");
     }
 
+    public function chats(){
+        return $this->hasMany("imake\Chat", "user_id", "id");
+    }
+
 
 
     public function getAvatar(User $user = null){

@@ -5,6 +5,9 @@
     <a class="item">
         <i class="options icon"></i> Settings
     </a>
+    <a class="item" href="{{route("chats.index")}}">
+        <i class="comments icon"></i> My Messages
+    </a>
     @if( $user->is_vendor )
         <div class="ui dropdown item">
             <i class="dropdown icon"></i>

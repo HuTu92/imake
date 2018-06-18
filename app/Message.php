@@ -20,4 +20,8 @@ class Message extends Model
         return $this->belongsTo("imake\Chat", "chat_id", "id");
     }
 
+    public function user(){
+        return $this->belongsTo("imake\User", "user_id", "id");
+    }
+
 }

@@ -21,6 +21,11 @@ class Vendor extends Model
 		return $this->hasMany("imake\Product", "vendor_id", "id");
 	}
 
+    public function chats(){
+        return $this->hasMany("imake\Chat", "vendor_id", "id");
+    }
+
+
     public function getLogo(User $user = null){
         if(!$user){
             $vendor = $this;
