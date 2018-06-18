@@ -9,6 +9,7 @@ use imake\Http\Controllers\Controller;
 use imake\Image;
 use Countries;
 use imake\Vendor;
+use imake\Product;
 
 class VendorController extends Controller
 {
@@ -70,8 +71,10 @@ class VendorController extends Controller
      */
     public function show($id)
     {
+        //TODO pagination products count
         $vendor = Vendor::findOrFail($id);
-        return view("vendors.show", ["vendor" => $vendor, 'country' => Countries::where('name.common', $vendor->shop_country)->first()]);
+        $products = Product::where('vendor_id', $vendor->id)->orderBy('created_at', 'desc')->paginate(1);
+        return view("vendors.show", ["vendor" => $vendor, 'country' => Countries::where('name.common', $vendor->shop_country)->first(), "products"=>$products]);
     }
 
     /**

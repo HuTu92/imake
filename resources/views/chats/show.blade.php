@@ -17,6 +17,22 @@
             </div>
 
             <div class="page-conent column">
+                @if ($errors->all())
+                    <div class="ui error message">
+                        <ul class="list">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (session()->has('message'))
+                    <div class="ui info message">
+                        <ul class="list">
+                            <li>{{ session()->get('message') }}</li>
+                        </ul>
+                    </div>
+                @endif
                 <div class="ui comments">
                     @foreach($messages as $msg)
                         @php
@@ -46,14 +62,15 @@
                         </div>
                     @endforeach
 
-                    {{--TODO new message from chat--}}
-                    <form class="ui reply form">
+                    <form class="ui reply form" method="post" action="{{ route('messages.store') }}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name='chat_id' value="{{ $chat->id }}">
                         <div class="field">
-                            <textarea></textarea>
+                            <textarea name='message' required></textarea>
                         </div>
-                        <div class="ui primary submit labeled icon button">
-                            <i class="icon edit"></i> Add Comment
-                        </div>
+                        <button class="ui blue labeled submit icon button">
+                            <i class="icon edit"></i> Send Message
+                        </button>
                     </form>
                 </div>
 

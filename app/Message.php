@@ -10,6 +10,7 @@ class Message extends Model
     protected $primaryKey = 'id';
     protected $fillable =  [
         'chat_id',
+        'user_id',
         'message',
         'created_at',
         'updated_at',

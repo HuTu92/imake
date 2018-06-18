@@ -4,12 +4,28 @@ namespace imake\Http\Controllers\Messages;
 
 use Illuminate\Http\Request;
 use imake\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use imake\Chat;
+use imake\Message;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class MessageController extends Controller
 {
 
     public function __construct() {
         $this->middleware(['auth']);
+    }
+
+    protected function validator(array $data)
+    {
+        $rules = [
+            'chat_id' => 'required|integer',
+            'message' => 'required',
+        ];
+
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -40,7 +56,26 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = $this->validator($request->all());
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors(["error" =>  __('strings.message_except')])->withInput($request->input());
+        }
+
+        if(Chat::find($request->get("chat_id"))){
+            $message = Message::create([
+                'message' => $request->get("message"),
+                'chat_id' => $request->get("chat_id"),
+                'user_id' => Auth::user()->id,
+            ]);
+            $message->save();
+            return redirect()->back()->with("message", __('strings.message_send'));
+        }else{
+            return redirect()->back()->withErrors(["error" =>  __('strings.message_except')])->withInput($request->input());
+
+        }
+
+
     }
 
     /**

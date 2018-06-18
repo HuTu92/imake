@@ -65,6 +65,7 @@ class ChatController extends Controller
         if(Auth::user()->can("view", $chat)) {
             return view("chats.show", [
                 "chat" => $chat,
+                "chat_id"=>$chat->id,
                 "messages" => $chat->messages
             ]);
         }

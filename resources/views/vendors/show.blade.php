@@ -40,12 +40,11 @@
                     </div>
                 </div>
                 <div  class="ui cards">
-                    @foreach($vendor->products as $product)
+                    @foreach($products as $product)
                         @include("inc.products-list", ["product" => $product])
                     @endforeach
-
-                    {{--TODO products pagination :PASH--}}
                 </div>
+                {{$products->links()}}
             </div>
 
             <div class="column sidebar">

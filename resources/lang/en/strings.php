@@ -16,5 +16,8 @@ return [
     "fileuploader-list-images" => "At least one image is required.",
     "product-deleted-from-cart" => "Product has been deleted from cart",
     "commented" => "Comment was added",
-    "comment_except" => "Comment wasn't added",
+    "comment_except" => "Comment wasn't add",
+    "message_except" => "Message wasn't send",
+    "message_send" => "Message was sent",
+
 ];
