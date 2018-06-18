@@ -62,6 +62,7 @@ class MessageController extends Controller
             return redirect()->back()->withErrors(["error" =>  __('strings.message_except')])->withInput($request->input());
         }
 
+        //TODO chat update policy
         if(Chat::find($request->get("chat_id"))){
             $message = Message::create([
                 'message' => $request->get("message"),
