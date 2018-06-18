@@ -320,3 +320,6 @@ form.inline-forms .ui.button{
     left: 5px;
     top: 12px;
 }
+a.label.chat-label{
+    margin-top: 10px !important;
+}
