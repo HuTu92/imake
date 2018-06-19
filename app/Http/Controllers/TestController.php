@@ -13,8 +13,15 @@ class TestController extends Controller
 {
     public function test(){
 
-        dump( Image::create(public_path("images/demo/sample_product.jpg")));
+        //dump( Image::create(public_path("images/demo/sample_product.jpg")));
 
+        if ($chat = Chat::where('user_id', 2)->where('product_id', 2)->first()){
+            dump ($chat->id);
+        }else{
+            dump ("lll");
+            exit;
+        }
+        //dump(Chat::where('user_id', 2)->where('product_id', 2)->first()->id);
        /* $chat = Chat::find(1);
         dump($chat);
         dump($chat->user);

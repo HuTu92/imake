@@ -38,6 +38,7 @@ class MessageController extends Controller
         //
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -75,8 +76,6 @@ class MessageController extends Controller
             return redirect()->back()->withErrors(["error" =>  __('strings.message_except')])->withInput($request->input());
 
         }
-
-
     }
 
     /**

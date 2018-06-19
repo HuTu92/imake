@@ -49,18 +49,22 @@
                             {{$product->name}}
                             <div class="sub header"><a href="{{route("vendors.show", $product->vendor->id)}}">{{$product->vendor->shop_name }}</a> <button class="ui right floated button mini ask-a-question-modal">Ask a Question</button></div>
                             <div class="ui modal">
-                                <div class="header"><i class="question circle outline icon"></i> Ask a Question</div>
-                                <div class="content">
-                                    <div class="ui form">
-                                        <div class="field">
-                                            <label>Message</label>
-                                            <textarea></textarea>
-                                        </div>
-                                        <button class="ui blue labeled submit icon button">
-                                            <i class="comment icon"></i> Send Message
-                                        </button>
+
+                                    <div class="header"><i class="question circle outline icon"></i> Ask a Question</div>
+                                    <div class="content">
+                                            <form class="ui form" method="post" action="{{ route('chats.store') }}">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name='product_id' value="{{ $product->id }}">
+                                            <div class="field">
+                                                <label>Message</label>
+                                                <textarea name='message' required></textarea>
+                                            </div>
+                                            <button class="ui blue labeled submit icon button">
+                                                <i class="comment icon"></i> Send Message
+                                            </button>
+                                            </form>
                                     </div>
-                                </div>
+
                             </div>
                         </h2>
                         <p class="ui blue header">$ {{ $product->real_price }}</p>
@@ -227,8 +231,6 @@
                         </div>
                     @endforeach
                     </div>
-                    @if(Auth::user())
-
                         <form class="ui reply form" method="post" action="{{ route('product.comment') }}">
                             {{ csrf_field() }}
                             <input type="hidden" name='product_id' value="{{ $product->id }}">
@@ -240,7 +242,6 @@
                                 <i class="icon comment"></i> Add comment
                             </button>
                         </form>
-                    @endif
                     </div>
             </div>
             <div class="column sidebar">

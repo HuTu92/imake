@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use imake\Chat;
 use imake\Http\Controllers\Controller;
 use imake\Message;
+use Illuminate\Support\Facades\Validator;
+use imake\Product;
+
 
 class ChatController extends Controller
 {
@@ -14,6 +17,18 @@ class ChatController extends Controller
     public function __construct() {
         $this->middleware(['auth']);
     }
+
+    protected function validator(array $data)
+    {
+        $rules = [
+            'product_id' => 'required|integer',
+            'message' => 'required',
+        ];
+
+        return Validator::make($data, $rules);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +60,41 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = $this->validator($request->all());
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors(["error" =>  __('strings.message_except')])->withInput($request->input());
+        }
+
+        $user_id = Auth::user()->id;
+
+        if($chat = Chat::where('user_id', $user_id)->where('product_id', $request->get("product_id"))->first())
+        {
+            $chat_id = $chat->id;
+        }else{
+
+            $product = Product::findOrFail($request->get("product_id"));
+            $vendor_id = $product->vendor->id;
+
+            $chat = Chat::create([
+                'product_id' => $request->get("product_id"),
+                'user_id' => $user_id,
+                'vendor_id' => $vendor_id,
+            ]);
+            $chat->save();
+            $chat_id = $chat->id;
+        }
+
+        $message = Message::create([
+            'message' => $request->get("message"),
+            'chat_id' => $chat_id,
+            'user_id' => $user_id,
+        ]);
+        $message->save();
+        return redirect()->route('chats.show', $chat->id)->with("message", __('strings.message_send'));
+
+
+
     }
 
     /**
