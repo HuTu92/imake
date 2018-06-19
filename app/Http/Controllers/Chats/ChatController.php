@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use imake\Chat;
 use imake\Http\Controllers\Controller;
+use imake\Message;
 
 class ChatController extends Controller
 {

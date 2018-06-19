@@ -34,7 +34,7 @@ class ChatPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -46,7 +46,7 @@ class ChatPolicy
      */
     public function update(User $user, Chat $chat)
     {
-        //
+        return true;
     }
 
     /**
@@ -58,6 +58,6 @@ class ChatPolicy
      */
     public function delete(User $user, Chat $chat)
     {
-        //
+        return false;
     }
 }

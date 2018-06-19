@@ -45,7 +45,8 @@
                                     <div class="description">
                                         <p>{{$chat->messages->last()->message or ""}}</p>
                                     </div>
-                                    <a class="ui image label chat-label" href="{{route("chats.show", $chat->id)}}">
+                                    <a class="ui image label chat-label" href="{{route("chats.show", $chat->id)
+                                    }}">
                                         <img src="{{$avatar}}">
                                         {{$author . " - " .$chat->messages->last()->updated_at}}
                                     </a>

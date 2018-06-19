@@ -545,11 +545,11 @@
                     </h4>
 
                     <div  id="carousel-news" class="owl-carousel owl-theme">
-                        <div  class="ui cards">
-                            @foreach($news as $product)
+                        @foreach($news as $product)
+                            <div  class="ui cards">
                                 @include("inc.products-list", ["product" => $product])
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 @endif
