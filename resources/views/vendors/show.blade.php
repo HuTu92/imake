@@ -38,6 +38,10 @@
                             </div>
                         </div>
                     </div>
+                    <div>
+
+
+                    </div>
                 </div>
                 <div  class="ui cards">
                     @foreach($products as $product)

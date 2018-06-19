@@ -47,7 +47,21 @@
 
                         <h2 class="ui header">
                             {{$product->name}}
-                            <div class="sub header"><a href="{{route("vendors.show", $product->vendor->id)}}">{{$product->vendor->shop_name }}</a></div>
+                            <div class="sub header"><a href="{{route("vendors.show", $product->vendor->id)}}">{{$product->vendor->shop_name }}</a> <button class="ui right floated button mini ask-a-question-modal">Ask a Question</button></div>
+                            <div class="ui modal">
+                                <div class="header"><i class="question circle outline icon"></i> Ask a Question</div>
+                                <div class="content">
+                                    <div class="ui form">
+                                        <div class="field">
+                                            <label>Message</label>
+                                            <textarea></textarea>
+                                        </div>
+                                        <button class="ui blue labeled submit icon button">
+                                            <i class="comment icon"></i> Send Message
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </h2>
                         <p class="ui blue header">$ {{ $product->real_price }}</p>
                         <div class="ui star rating" data-rating="3"></div>
@@ -346,6 +360,10 @@
         <script src="{{asset('js/fotorama.js')}}"></script>
         <script>
             $(document).ready(function(){
+                $(".ask-a-question-modal").click(function () {
+                    $('.ui.modal').modal('show')
+                })
+
                 $('.tabs .item').tab();
                 calculateTotal(150, $('#count').val());
 
