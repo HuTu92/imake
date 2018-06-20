@@ -61,7 +61,6 @@
                     </div>
                 </div>
                 {{ $chats->links() }}
-
             </div>
 
         </div>

@@ -7,7 +7,24 @@
     </a>
     <a class="item" href="{{route("chats.index")}}">
         <i class="comments icon"></i> My Messages
-        <div class="floating ui red label">22</div>
+        @php
+            $cnt = 0;
+            $user_id = \Illuminate\Support\Facades\Auth::user()->id;
+            if($chats =   \imake\Chat::where('user_id', $user_id)->orWhere('vendor_id', $user_id)->get())
+            {
+                foreach ($chats as $chat)
+                {
+                    $not_my = $chat->messages->whereNotIn('user_id', $user_id);
+                    $not_read = $not_my->where('is_read', 0)->count();
+                    if($not_read){
+                    $cnt += $not_read;
+                    };
+                }
+            };
+        @endphp
+        @if($cnt > 0)
+            <div class="floating ui red label">{{ $cnt }}</div>
+        @endif
     </a>
     @if( $user->is_vendor )
         <div class="ui dropdown item">

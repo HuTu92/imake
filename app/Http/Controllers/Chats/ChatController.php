@@ -9,6 +9,7 @@ use imake\Http\Controllers\Controller;
 use imake\Message;
 use Illuminate\Support\Facades\Validator;
 use imake\Product;
+use imake\User;
 
 
 class ChatController extends Controller
