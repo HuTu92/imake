@@ -38,7 +38,7 @@ class ChatController extends Controller
     {
         //TODO pagination chat count
         $user = Auth::user();
-        $chats = Chat::where("user_id",$user->id)->orwhere("vendor_id",$user->id)->orderBy('created_at', 'desc')->paginate(1);
+        $chats = Chat::where("user_id",$user->id)->orwhere("vendor_id",$user->id)->orderBy('created_at', 'desc')->paginate(2);
         return view("chats.index", ["chats" => $chats]);
     }
 
@@ -71,10 +71,12 @@ class ChatController extends Controller
         if($chat = Chat::where('user_id', $user_id)->where('product_id', $request->get("product_id"))->first())
         {
             $chat_id = $chat->id;
+            $vendor_id = $chat->vendor_id;
         }else{
 
             $product = Product::findOrFail($request->get("product_id"));
             $vendor_id = $product->vendor->id;
+
 
             $chat = Chat::create([
                 'product_id' => $request->get("product_id"),
@@ -85,10 +87,12 @@ class ChatController extends Controller
             $chat_id = $chat->id;
         }
 
+
         $message = Message::create([
             'message' => $request->get("message"),
             'chat_id' => $chat_id,
             'user_id' => $user_id,
+            'is_read' => 0,
         ]);
         $message->save();
         return redirect()->route('chats.show', $chat->id)->with("message", __('strings.message_send'));
@@ -106,6 +110,10 @@ class ChatController extends Controller
     public function show($id)
     {
         $chat = Chat::findOrFail($id);
+
+        Message::where('chat_id', $chat->id)
+            ->whereNotIn('user_id', [Auth::user()->id])
+            ->update(['is_read' => 1]);
 
         if(Auth::user()->can("view", $chat)) {
             return view("chats.show", [

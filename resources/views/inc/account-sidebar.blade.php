@@ -7,6 +7,7 @@
     </a>
     <a class="item" href="{{route("chats.index")}}">
         <i class="comments icon"></i> My Messages
+        <div class="floating ui red label">22</div>
     </a>
     @if( $user->is_vendor )
         <div class="ui dropdown item">

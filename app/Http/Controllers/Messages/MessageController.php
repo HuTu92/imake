@@ -64,11 +64,14 @@ class MessageController extends Controller
         }
 
         //TODO chat update policy
-        if(Chat::find($request->get("chat_id"))){
+
+        if($chat = Chat::find($request->get("chat_id"))){
+
             $message = Message::create([
                 'message' => $request->get("message"),
                 'chat_id' => $request->get("chat_id"),
                 'user_id' => Auth::user()->id,
+                'is_read' => 0,
             ]);
             $message->save();
             return redirect()->back()->with("message", __('strings.message_send'));

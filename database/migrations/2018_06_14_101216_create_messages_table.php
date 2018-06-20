@@ -23,6 +23,7 @@ class CreateMessagesTable extends Migration
             $table->foreign("user_id")->references("id")->on("users");
 
             $table->string("message",5000);
+            $table->integer("is_read")->unsigned()->default(0);
 
             $table->timestamps();
         });

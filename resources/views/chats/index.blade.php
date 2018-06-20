@@ -45,11 +45,16 @@
                                     <div class="description">
                                         <p>{{$chat->messages->last()->message or ""}}</p>
                                     </div>
+
                                     <a class="ui image label chat-label" href="{{route("chats.show", $chat->id)
                                     }}">
+
                                         <img src="{{$avatar}}">
                                         {{$author . " - " .$chat->messages->last()->updated_at}}
                                     </a>
+                                    @if( $chat->messages->last()->is_read == 0 and \Illuminate\Support\Facades\Auth::user()->id !=  $chat->messages->last()->user_id)
+                                    <p class="ui red empty circular label"></p>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach
